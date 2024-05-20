@@ -20,7 +20,7 @@ class ApiResponseClass
 
     public static function sendResponse($result , $message ,$code=200){
         $response=[
-            'success' => true,
+            'success' => $code < 400,
             'data'    => $result
         ];
         if(!empty($message)){
@@ -28,5 +28,4 @@ class ApiResponseClass
         }
         return response()->json($response, $code);
     }
-
 }

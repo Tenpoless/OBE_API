@@ -27,6 +27,13 @@ class EvalRepository implements EvalRepositoryInterface
     }
 
     public function delete($id_evaluasi){
-        Evaluasi::destroy($id_evaluasi);
+        $evaluasi = Evaluasi::find($id_evaluasi);
+
+        if (!$evaluasi) {
+            return false; // Gagal menghapus karena evaluasi tidak ditemukan
+        }
+    
+        $evaluasi->delete();
+        return true;
     }
 }

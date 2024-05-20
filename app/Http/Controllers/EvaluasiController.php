@@ -107,8 +107,12 @@ class EvaluasiController extends Controller
      */
     public function destroy($id_evaluasi)
     {
-        $this->evalRepositoryInterface->delete($id_evaluasi);
+        $result = $this->evalRepositoryInterface->delete($id_evaluasi);
 
-        return ApiResponseClass::sendResponse('Evaluasi Delete Succes','',204);
+        if ($result) {
+            return ApiResponseClass::sendResponse('true', 'Evaluasi Delete Success', 200);
+        } else {
+            return ApiResponseClass::sendResponse('false', 'Evaluasi Not Found', 404);
+        }
     }
 }
