@@ -15,7 +15,7 @@ class EvalRepository implements EvalRepositoryInterface
     }
 
     public function getById($id_evaluasi){
-        return Evaluasi::finOrFail($id_evaluasi);
+        return Evaluasi::findOrFail($id_evaluasi);
     }
 
     public function store(array $data)
