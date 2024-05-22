@@ -15,7 +15,7 @@ class HalamanUtamaResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'nama_dosen' => $this->nama_dosen, // Menggunakan properti langsung dari model User
+            'nama_dosen' => $this->dosen->nama_dosen, // Menggunakan properti langsung dari model User
         ];
     }
 }
