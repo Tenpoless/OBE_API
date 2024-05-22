@@ -12,9 +12,9 @@ Route::get('/user', function (Request $request) {
 Route::apiResource('/evaluasi', EvaluasiController::class);
 
 Route::middleware('api')->group(function () {
-    // Route untuk menampilkan daftar data dosen
-    Route::get('/halaman-utama', [HalamanUtamaController::class, 'index']);
-    
-    // Route untuk menampilkan data dosen berdasarkan ID
-    Route::get('/halaman-utama/{id}', [HalamanUtamaController::class, 'show']);
+    // Route untuk menampilkan hanya nama dosen
+    Route::get('/halaman-utama-nama/{id}', [HalamanUtamaController::class, 'getNamaDosen']);
+
+    // Route untuk menampilkan nama dosen, email, dan nomor telepon
+    Route::get('/halaman-utama-profile/{id}', [HalamanUtamaController::class, 'getProfileDosen']);
 });

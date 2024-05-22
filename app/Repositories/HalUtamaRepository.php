@@ -2,21 +2,18 @@
 
 namespace App\Repositories;
 
-use App\Models\HalamanUtama;
 use App\Interfaces\HalUtamaRepositoryInterface;
+use App\Models\User;
 
 class HalUtamaRepository implements HalUtamaRepositoryInterface
 {
-    /**
-     * Create a new class instance.
-     */
-    public function getAll()
+    public function getNamaDosen($id)
     {
-        return HalamanUtama::all();
+        return User::findOrFail($id);
     }
 
-    public function getById($id)
+    public function getProfileDosen($id)
     {
-        return HalamanUtama::findOrFail($id);
+        return User::with('dosen.jurusan')->findOrFail($id);
     }
 }

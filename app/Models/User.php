@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable;
 
     /**
      * The table associated with the model.
@@ -20,12 +18,30 @@ class User extends Authenticatable
     protected $table = 'user';
 
     /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id_user'; // Menentukan primary key 'id_user'
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'email', 'password', 'status', 'level', 'date_create',
+        'id_user',
+        'email',
+        'password',
+        'status',
+        'level',
     ];
 
     /**
@@ -35,7 +51,24 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'remember_token',
     ];
 
-    public $timestamps = false;
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Get the dosen associated with the user.
+     */
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'id_user', 'id_user'); // Relasi one-to-one dengan model Dosen
+    }
 }

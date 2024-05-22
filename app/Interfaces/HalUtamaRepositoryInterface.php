@@ -2,8 +2,8 @@
 
 namespace App\Interfaces;
 
-interface ProductRepositoryInterface
+interface HalUtamaRepositoryInterface
 {
-    public function index();
-    public function getById($id);
+    public function getNamaDosen($id);
+    public function getProfileDosen($id);
 }

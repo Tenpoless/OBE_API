@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use App\Interfaces\EvalRepositoryInterface;
 use App\Repositories\EvalRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\HalUtamaRepository;
+use App\Interfaces\EvalRepositoryInterface;
+use App\Interfaces\HalUtamaRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

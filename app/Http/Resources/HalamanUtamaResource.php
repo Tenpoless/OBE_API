@@ -12,16 +12,10 @@ class HalamanUtamaResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request)
     {
         return [
-            'id_dosen'      => $this->id_dosen,
-            'nip'           => $this->nip,
-            'nama_dosen'    => $this->nama_dosen,
-            'tempat_lahir'  => $this->tempat_lahir,
-            'alamat'        => $this->alamat,
-            'no_telpon'     => $this->no_telpon,
-            'email'         => $this->email
+            'nama_dosen' => $this->nama_dosen, // Menggunakan properti langsung dari model User
         ];
     }
 }
