@@ -14,6 +14,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(EvalRepositoryInterface::class, EvalRepository::class);
+        $this->app->bind(HalUtamaRepositoryInterface::class, HalUtamaRepository::class);
     }
 
     /**
