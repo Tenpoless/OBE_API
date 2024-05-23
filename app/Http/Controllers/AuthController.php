@@ -19,10 +19,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         // Temukan user berdasarkan email
-        // $users = User::where('email', $credentials['email'])->get();
-        // $users = User::where('email', $credentials['email'])->whereIn('level', [2,4])->get();
         $users = User::whereIn('level', [3, 4])->where('email', $credentials['email'])->get();
-        // $users = User::where('email', $credentials['email'])->where('level', 2)->get();
 
         // Verifikasi password menggunakan MD5
         foreach ($users as $user) {

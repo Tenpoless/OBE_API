@@ -43,11 +43,6 @@ class User extends Authenticatable implements JWTSubject
         // return Hash::check($password, $this->password);
     }
 
-    // public function verifyLevel($level)
-    // {
-    //     return $this->level === $level;
-    // }
-
         /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
