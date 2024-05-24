@@ -19,25 +19,34 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         // Temukan user berdasarkan email
-        $users = User::whereIn('level', [3, 4])->where('email', $credentials['email'])->get();
+        $users = User::where('email', $credentials['email'])->get();
 
-        // Verifikasi password menggunakan MD5
-        foreach ($users as $user) {
-            if ($user->verifyPassword($credentials['password'])) {
-                $token = JWTAuth::fromUser($user);
-
-                // Dapatkan level user
-                $level = $user->level;
-
-                // Log informasi pengguna untuk debugging
-                Log::info('User ID: ' . $user->id_user . ', Level: ' . $user->level);
-
-                // Kembalikan token dan level
-                return response()->json(compact('token', 'level'));
-            }
+        // Jika tidak ada user dengan email tersebut
+        if ($users->isEmpty()) {
+            return response()->json(['error' => 'Email atau Password salah'], 401);
         }
 
-        // Jika tidak ada user yang cocok dengan email dan password
-        return response()->json(['error' => 'Unauthorized'], 401);
+        // Verifikasi password dan level
+        foreach ($users as $user) {
+            if ($user->verifyPassword($credentials['password'])) {
+                if (in_array($user->level, [3, 4])) {
+                    $token = JWTAuth::fromUser($user);
+
+                    // Dapatkan level user
+                    $level = $user->level;
+
+                    // Log informasi pengguna untuk debugging
+                    Log::info('User ID: ' . $user->id . ', Level: ' . $level);
+
+                    // Kembalikan token dan level
+                    return response()->json(compact('token', 'level'));
+                } else {
+                    // Jika user berlevel selain 3 dan 4
+                    return response()->json(['error' => 'Anda tidak terdaftar'], 401);
+                }
+            }
+        }
+        // Jika tidak ada user yang cocok dengan password
+        return response()->json(['error' => 'Email atau Password salah'], 401);
     }
 }
