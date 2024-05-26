@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Interfaces\DetailRpsRepositoryInterface;
 use App\Interfaces\EvalRepositoryInterface;
+use App\Interfaces\SubCpmkRepositoryInterface;
+use App\Repositories\DetailRpsRepository;
 use App\Repositories\EvalRepository;
+use App\Repositories\SubCpmkRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -14,6 +18,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(EvalRepositoryInterface::class, EvalRepository::class);
+        $this->app->bind(DetailRpsRepositoryInterface::class, DetailRpsRepository::class);
+        $this->app->bind(SubCpmkRepositoryInterface::class, SubCpmkRepository::class);
     }
 
     /**
