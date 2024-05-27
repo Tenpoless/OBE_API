@@ -9,22 +9,10 @@ class Matkul extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'matkul';
-
     protected $primaryKey = 'id_matkul';
-
     public $timestamps = false;
 
-    /**
-     * fillable
-     *
-     * @var array
-     */
     protected $fillable = [
         'id_matkul',
         'nama_matkul',
@@ -36,7 +24,6 @@ class Matkul extends Model
         'id_jurusan',
         'id_tahun',
     ];
-
 
     public function jurusan()
     {

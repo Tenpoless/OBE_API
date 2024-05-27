@@ -10,23 +10,15 @@ class EvaluasiMhs extends Model
     use HasFactory;
 
     protected $table = 'evaluasi_mhs';
-
-    protected $primaryKey = 'id_evaluasimhs';
-
+    protected $primaryKey = 'id_evaluasi';
     public $timestamps = false;
 
-    /**
-     * fillable
-     *
-     * @var array
-     */
     protected $fillable = [
-        'id_evaluasimhs',
-        'id_evaluasi2',
-        'nilai_mhs',
-        'bobot_mhs',
+        'id_evaluasi',
         'id_matkul',
-        'id_user',
+        'id_mahasiswa',
+        'nilai',
+        'komentar',
     ];
 
     public function matkul()

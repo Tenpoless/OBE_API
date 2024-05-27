@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Matkul;
-use App\Repositories\EvalMhsRepository;
 use App\Interfaces\EvalMhsRepositoryInterface;
 
 class EvalMhsRepository implements EvalMhsRepositoryInterface

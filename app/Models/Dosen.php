@@ -9,39 +9,11 @@ class Dosen extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'dosen';
-
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id_dosen'; // Menentukan primary key 'id_dosen'
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
+    protected $primaryKey = 'id_dosen';
     public $incrementing = true;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
     public $timestamps = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'id_dosen',
         'nip',
@@ -54,24 +26,23 @@ class Dosen extends Model
         'id_user'
     ];
 
-    /**
-     * Get the user that owns the dosen.
-     */
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id_user'); // Relasi one-to-one dengan model User
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
 
-    /**
-     * Get the jurusan that owns the dosen.
-     */
     public function jurusan()
     {
-        return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan'); // Relasi many-to-one dengan model Jurusan
+        return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
     }
 
     public function pengampu_mk()
     {
-        return $this->belongsTo(PengampuMK::class, 'id_dosen', 'id_dosen');
+        return $this->hasMany(PengampuMK::class, 'id_dosen', 'id_dosen');
+    }
+
+    public function matkuls()
+    {
+        return $this->hasManyThrough(Matkul::class, PengampuMK::class, 'id_dosen', 'id_matkul', 'id_dosen', 'id_matkul');
     }
 }
