@@ -69,4 +69,9 @@ class Dosen extends Model
     {
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan'); // Relasi many-to-one dengan model Jurusan
     }
+
+    public function pengampu_mk()
+    {
+        return $this->belongsTo(PengampuMK::class, 'id_dosen', 'id_dosen');
+    }
 }

@@ -17,4 +17,7 @@ Route::middleware('api')->group(function () {
 
     // Route untuk menampilkan nama dosen, email, dan nomor telepon
     Route::get('/halaman-utama-profile/{id}', [HalamanUtamaController::class, 'getProfileDosen']);
+
+    //SCR5
+    Route::get('/rps-mhs', [EvaluasiMahasiswaController::class, 'index']);
 });

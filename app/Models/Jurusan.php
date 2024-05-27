@@ -57,4 +57,9 @@ class Jurusan extends Model
     {
         return $this->hasMany(Dosen::class, 'id_jurusan', 'id_jurusan'); // Relasi one-to-many dengan model Dosen
     }
+
+    public function matkul()
+    {
+        return $this->belongsTo(Matkul::class, 'id_jurusan', 'id_jurusan'); // Relasi one-to-one dengan model User
+    }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\HalUtamaRepositoryInterface;
 use App\Models\User;
+use App\Repositories\HalUtamaRepository;
+use App\Interfaces\HalUtamaRepositoryInterface;
 
 class HalUtamaRepository implements HalUtamaRepositoryInterface
 {
