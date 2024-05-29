@@ -41,7 +41,7 @@ class Dosen extends Model
         return $this->hasMany(PengampuMK::class, 'id_dosen', 'id_dosen');
     }
 
-    public function matkuls()
+    public function matkul()
     {
         return $this->hasManyThrough(Matkul::class, PengampuMK::class, 'id_dosen', 'id_matkul', 'id_dosen', 'id_matkul');
     }

@@ -69,6 +69,16 @@ class User extends Authenticatable
      */
     public function dosen()
     {
-        return $this->hasOne(Dosen::class, 'id_user', 'id_user'); // Relasi one-to-one dengan model Dosen
+        return $this->hasOne(Dosen::class, 'id_user', 'id_user');
+    }
+
+    public function evaluasi_mhs()
+    {
+        return $this->hasMany(EvaluasiMhs::class, 'id_user', 'id_user');
+    }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'id_user', 'id_user');
     }
 }

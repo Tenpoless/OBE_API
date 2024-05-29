@@ -21,7 +21,7 @@ class EvalMhsResource extends JsonResource
                 'kelas_matkul' => $this->pengampu_mk ? $this->pengampu_mk->kelas : null
             ],
             'dosen' => [
-                'dosen1' => $this->pengampu_mk && $this->pengampu_mk->dosen ? $this->pengampu_mk->dosen->nama_dosen : null
+                'nama_dosen' => $this->pengampu_mk && $this->pengampu_mk->dosen ? $this->pengampu_mk->dosen->nama_dosen : null
             ]
         ];
     }

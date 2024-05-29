@@ -15,11 +15,6 @@ class PengampuMK extends Model
 
     public $timestamps = false;
 
-    /**
-     * fillable
-     *
-     * @var array
-     */
     protected $fillable = [
         'id_pengampu',
         'id_dosen',
@@ -39,5 +34,10 @@ class PengampuMK extends Model
     public function dosen()
     {
         return $this->belongsTo(Dosen::class, 'id_dosen', 'id_dosen');
+    }
+
+    public function matkulMhs()
+    {
+        return $this->hasMany(MatkulMhs::class, 'id_pengampu', 'id_pengampu');
     }
 }
