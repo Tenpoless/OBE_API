@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Interfaces\SubCpmkRepositoryInterface;
 use App\Classes\ApiResponseClass;
 use App\Http\Resources\SubCpmkResource;
-use Illuminate\Http\Request;
 
 class SubCpmkController extends Controller
 {
@@ -16,10 +15,14 @@ class SubCpmkController extends Controller
         $this->subCpmkRepositoryInterface = $subCpmkRepositoryInterface;
     }
 
-    public function show($id_subcpmk)
+    public function show($id_detailrps)
     {
-        $subcpmk = $this->subCpmkRepositoryInterface->getSubCpmkById($id_subcpmk);
+        $subcpmk = $this->subCpmkRepositoryInterface->getSubCpmkById($id_detailrps);
 
+        if (!$subcpmk) {
+            return response()->json(['message' => 'subcpmk not found'], 404);
+        }
+        
         return ApiResponseClass::sendResponse(new SubCpmkResource($subcpmk),'',200);
     }
 }

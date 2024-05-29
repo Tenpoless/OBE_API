@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Evaluasi;
+use App\Models\DetailRps;
 use App\Interfaces\EvalRepositoryInterface;
 
 class EvalRepository implements EvalRepositoryInterface
@@ -14,19 +15,26 @@ class EvalRepository implements EvalRepositoryInterface
         return Evaluasi::all();
     }
 
-    public function getById($id_evaluasi){
-        return Evaluasi::findOrFail($id_evaluasi);
+    public function getById($id_detailrps){
+        $detailrps = DetailRps::findOrFail($id_detailrps);
+
+        $evaluasi = Evaluasi::where('id_detailrps', $detailrps->id_detailrps)->first();
+
+        return $evaluasi;
     }
 
     public function store(array $data)
     {
         return Evaluasi::create($data);
     }
-    public function update(array $data, $id_evaluasi){
+    
+    public function update(array $data, $id_evaluasi)
+    {
         return Evaluasi::where('id_evaluasi', $id_evaluasi)->update($data);
     }
 
-    public function delete($id_evaluasi){
+    public function delete($id_evaluasi,$id_matkul,  $id_pengampu)
+    {
         $evaluasi = Evaluasi::find($id_evaluasi);
 
         if (!$evaluasi) {

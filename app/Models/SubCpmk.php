@@ -20,4 +20,8 @@ class SubCpmk extends Model
         "id_cplmk",
         "id_matkul"
     ];
+
+    public function matkul(){
+        return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');
+    }
 }

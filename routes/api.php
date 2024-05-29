@@ -14,8 +14,10 @@ Route::middleware('auth:api')->group(function () {
         return $request->user();
     });
 
-    Route::apiResource('/evaluasi', EvaluasiController::class);
+    // Route::apiResource('/evaluasi', EvaluasiController::class);
     Route::get('/detailrps/{id_detailrps}', [DetailRpsController::class, 'show']);
     Route::get('/detailrps', [DetailRpsController::class, 'index']);
-    Route::get('/subcpmk/{id_subcpmk}', [SubCpmkController::class, 'show']);
+    Route::get('/subcpmk/{id_detailrps}', [SubCpmkController::class, 'show']);
+    Route::get('/eval/{id_detailrps}', [EvaluasiController::class, 'show']);
+    Route::put('/eval/{id_detailrps}', [EvaluasiController::class, 'update']);
 });

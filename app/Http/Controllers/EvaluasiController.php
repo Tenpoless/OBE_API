@@ -63,9 +63,9 @@ class EvaluasiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id_evaluasi)
+    public function show($id_detailrps)
     {
-        $evaluasi = $this->evalRepositoryInterface->getById($id_evaluasi);
+        $evaluasi = $this->evalRepositoryInterface->getById($id_detailrps);
 
         return ApiResponseClass::sendResponse(new EvalResource($evaluasi),'',200);
     }
@@ -105,9 +105,9 @@ class EvaluasiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id_evaluasi)
+    public function destroy($id_evaluasi,$id_matkul,  $id_pengampu)
     {
-        $result = $this->evalRepositoryInterface->delete($id_evaluasi);
+        $result = $this->evalRepositoryInterface->delete($id_evaluasi,$id_matkul,  $id_pengampu);
 
         if ($result) {
             return ApiResponseClass::sendResponse('true', 'Evaluasi Delete Success', 200);
