@@ -32,4 +32,9 @@ class Mahasiswa extends Model
     {
         return $this->hasMany(MatkulMhs::class, 'id_user', 'id_user');
     }
+
+    public function evaluasi_mhs()
+    {
+        return $this->hasMany(EvaluasiMhs::class, 'id_user', 'id_user');
+    }
 }

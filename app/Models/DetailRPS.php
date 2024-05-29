@@ -37,4 +37,9 @@ class DetailRPS extends Model
     {
         return $this->belongsTo(DetailRPS::class, 'id_matkul', 'id_matkul');
     }
+
+    public function evaluasi_mhs()
+    {
+        return $this->belongsTo(EvaluasiMhs::class, 'id_detailrps', 'id_detailrps');
+    }
 }

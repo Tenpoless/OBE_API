@@ -31,4 +31,24 @@ class EvaluasiMhs extends Model
     {
         return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
+
+    public function cpl()
+    {
+        return $this->belongsTo(Cpl::class, 'id_cpl', 'id_cpl');
+    }
+
+    public function subcpmk()
+    {
+        return $this->belongsTo(Subcpmk::class, 'id_subcpmk', 'id_subcpmk');
+    }
+
+    public function evaluasi()
+    {
+        return $this->belongsTo(Evaluasi::class, 'id_evaluasi2', 'id_evaluasi');
+    }
+
+    public function detailRps()
+    {
+        return $this->belongsTo(DetailRPS::class, 'id_detailrps', 'id_detailrps');
+    }
 }

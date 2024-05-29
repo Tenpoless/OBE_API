@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HalamanUtamaController;
 use App\Http\Controllers\EvaluasiMahasiswaController;
 use App\Http\Controllers\EvaluasiMahasiswaDataController;
+use App\Http\Controllers\EvaluasiMahasiswaDetailController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -22,4 +23,7 @@ Route::middleware('api')->group(function () {
 
     // Route untuk mendapatkan mahasiswa berdasarkan dosen ID
     Route::get('/mahasiswa-by-dosen/{id}', [EvaluasiMahasiswaDataController::class, 'getMahasiswaByDosen']);
+
+    // Route untuk mendapatkan detail mahasiswa berdasarkan mahasiswa ID
+    Route::get('/evaluasi-mahasiswa-detail/{id}', [EvaluasiMahasiswaDetailController::class, 'getEvaluasiDetailsByUserId']);
 });
