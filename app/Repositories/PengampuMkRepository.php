@@ -18,7 +18,7 @@ class PengampuMkRepository implements PengampuMkRepositoryInterface
         $dosen = Dosen::where('id_user', $user->id_user)->firstOrFail();
 
         //get id_matkul and kelas from pengampu_mk
-        // $pengampuMk = PengampuMk::where(['id_dosen', 'nama_dosen2', 'nama_dosen3'], $dosen->id_dosen)->get(['id_matkul', 'kelas']);
+        // $pengampuMk = PengampuMk::where('nama_dosen2', $dosen->id_dosen)->get(['id_matkul', 'kelas']);
         $pengampuMk = PengampuMk::where('id_dosen', $dosen->id_dosen)
         ->orWhere('nama_dosen2', $dosen->id_dosen)
         ->orWhere('nama_dosen3', $dosen->id_dosen)
@@ -30,7 +30,9 @@ class PengampuMkRepository implements PengampuMkRepositoryInterface
 
         //response
         $response = $matkuls->map(function ($matkul) use ($pengampuMk) {
-            $kelas = $pengampuMk->firstWhere('id_matkul', $matkul->id_matkul)->kelas;
+            $kelas = $pengampuMk->filter(function ($item) use ($matkul) {
+                return $item->id_matkul == $matkul->id_matkul;
+            })->pluck('kelas')->toArray();
             return [
                 'matkul' => $matkul,
                 'kelas' => $kelas,
