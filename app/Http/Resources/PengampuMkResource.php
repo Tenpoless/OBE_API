@@ -15,11 +15,9 @@ class PengampuMkResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id_pengampu' => $this->id_pengampu,
             'id_matkul' => $this->id_matkul,
             'matkul' => $this->matkul,
-            'jurusan' => $this->matkul->jurusan,
-            'fakultas' => $this->matkul->jurusan->fakultas,
-            'deskripsi_mk' => $this->matkul->deskripsiMk,
             'dosen' => $this->dosen,
         ];
     }

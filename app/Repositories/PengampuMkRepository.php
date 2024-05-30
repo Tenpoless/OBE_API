@@ -18,24 +18,21 @@ class PengampuMkRepository implements PengampuMkRepositoryInterface
         $dosen = Dosen::where('id_user', $user->id_user)->firstOrFail();
 
         //get id_matkul and kelas from pengampu_mk
-        // $pengampuMk = PengampuMk::where('nama_dosen2', $dosen->id_dosen)->get(['id_matkul', 'kelas']);
         $pengampuMk = PengampuMk::where('id_dosen', $dosen->id_dosen)
         ->orWhere('nama_dosen2', $dosen->id_dosen)
         ->orWhere('nama_dosen3', $dosen->id_dosen)
-        ->get(['id_matkul', 'kelas']);
+        ->get(['id_matkul', 'kelas', 'id_pengampu']);
 
         //get matkul data 
         $matkulId = $pengampuMk->pluck('id_matkul');
-        $matkuls = Matkul::whereIn('id_matkul', $matkulId)->get();
+        $matkuls = Matkul::whereIn('id_matkul', $matkulId)->get()->keyBy('id_matkul');
 
-        //response
-        $response = $matkuls->map(function ($matkul) use ($pengampuMk) {
-            $kelas = $pengampuMk->filter(function ($item) use ($matkul) {
-                return $item->id_matkul == $matkul->id_matkul;
-            })->pluck('kelas')->toArray();
+        // Response
+        $response = $pengampuMk->map(function ($pengampu) use ($matkuls) {
+            $matkul = $matkuls->firstWhere('id_matkul', $pengampu->id_matkul);
             return [
-                'matkul' => $matkul,
-                'kelas' => $kelas,
+                'nama_matkul' => $matkul ? $matkul->nama_matkul : null,
+                'kelas' => $pengampu->kelas,
             ];
         });
 
