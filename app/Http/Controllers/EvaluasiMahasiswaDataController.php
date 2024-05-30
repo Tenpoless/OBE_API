@@ -2,37 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Interfaces\EvalMhsDataRepositoryInterface;
 use App\Http\Resources\EvalMhsDataResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // Tambahkan ini untuk menggunakan Auth
 
 class EvaluasiMahasiswaDataController extends Controller
 {
-    public function getMahasiswaByMatkul($id_matkul)
+    protected $evalMhsDataRepository;
+
+    public function __construct(EvalMhsDataRepositoryInterface $evalMhsDataRepository)
     {
-        // Dapatkan ID pengguna yang terotentikasi
-        $userId = Auth::id();
+        $this->evalMhsDataRepository = $evalMhsDataRepository;
+    }
 
-        // Memuat data dosen beserta relasi pengampu_mk -> matkul_mhs -> mahasiswa
-        $user = User::with('dosen.pengampu_mk.matkulMhs.mahasiswa')->find($userId);
-
-        if (!$user || !$user->dosen) {
-            return response()->json(['message' => 'Data not found'], 404);
+    public function showByMatkul($id_matkul)
+    {
+        $data = $this->evalMhsDataRepository->getEvaluasiByMatkul($id_matkul);
+        if ($data) {
+            return new EvalMhsDataResource((object)$data);
         }
-
-        // Filter data matkul_mhs berdasarkan id_matkul
-        $matkulMhs = $user->dosen->pengampu_mk
-            ->where('id_matkul', $id_matkul)
-            ->flatMap(function ($pengampuMK) {
-                return $pengampuMK->matkulMhs;
-            });
-
-        // Mengambil data mahasiswa dari hasil filter
-        $mahasiswa = $matkulMhs->map(function ($matkulMhs) {
-            return $matkulMhs->mahasiswa;
-        });
-
-        return EvalMhsDataResource::collection($mahasiswa);
+        return response()->json(['message' => 'Data not found'], 404);
     }
 }

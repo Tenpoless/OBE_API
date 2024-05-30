@@ -20,8 +20,8 @@ Route::middleware('auth:api')->group(function () {
     // Route untuk mendapatkan matkul berdasarkan user ID - SCR5.1.1
     Route::get('/evaluasi-mahasiswa/{id}', [EvaluasiMahasiswaController::class, 'show']);
 
-    // Route untuk mendapatkan mahasiswa berdasarkan dosen ID - SCR5.1.2
-    Route::get('/mahasiswa-by-dosen/{id_matkul}', [EvaluasiMahasiswaDataController::class, 'getMahasiswaByDosen']);
+    // Route untuk mendapatkan mahasiswa berdasarkan dosen ID - SCR5.1.
+    Route::get('mahasiswa-by-matkul/{id_matkul}', [EvaluasiMahasiswaDataController::class, 'showByMatkul']);
 
     // Route untuk mendapatkan detail mahasiswa berdasarkan mahasiswa ID - SCR5.2
     Route::get('/evaluasi-mahasiswa-detail/{id}', [EvaluasiMahasiswaDetailController::class, 'getEvaluasiDetailsByUserId']);
