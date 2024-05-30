@@ -6,6 +6,7 @@ use App\Interfaces\HalUtamaRepositoryInterface;
 use App\Http\Resources\HalamanUtamaResource;
 use App\Http\Resources\ProfileDosenResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // tambahkan ini untuk menggunakan Auth
 
 class HalamanUtamaController extends Controller
 {
@@ -19,9 +20,10 @@ class HalamanUtamaController extends Controller
     /**
      * Menampilkan nama dosen berdasarkan user_id.
      */
-    public function getNamaDosen($id)
+    public function getNamaDosen()
     {
         try {
+            $id = Auth::id(); // Dapatkan ID pengguna yang terotentikasi
             $user = $this->halUtamaRepository->getNamaDosen($id);
             return new HalamanUtamaResource($user);
         } catch (\Exception $e) {
@@ -32,9 +34,10 @@ class HalamanUtamaController extends Controller
     /**
      * Menampilkan nama dosen, email, dan nomor telepon berdasarkan user_id.
      */
-    public function getProfileDosen($id)
+    public function getProfileDosen()
     {
         try {
+            $id = Auth::id(); // Dapatkan ID pengguna yang terotentikasi
             $user = $this->halUtamaRepository->getProfileDosen($id);
             return new ProfileDosenResource($user);
         } catch (\Exception $e) {

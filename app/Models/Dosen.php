@@ -43,6 +43,13 @@ class Dosen extends Model
 
     public function matkul()
     {
-        return $this->hasManyThrough(Matkul::class, PengampuMK::class, 'id_dosen', 'id_matkul', 'id_dosen', 'id_matkul');
+        return $this->hasManyThrough(
+            Matkul::class,
+            PengampuMK::class,
+            'id_dosen', // Foreign key on PengampuMK table
+            'id_matkul', // Foreign key on Matkul table
+            'id_dosen', // Local key on Dosen table
+            'id_matkul' // Local key on PengampuMK table
+        );
     }
 }

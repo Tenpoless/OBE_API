@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Resources\EvalMhsDataResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Tambahkan ini untuk menggunakan Auth
 
 class EvaluasiMahasiswaDataController extends Controller
 {
-    public function getMahasiswaByDosen($userId)
+    public function getMahasiswaByDosen()
     {
+        // Dapatkan ID pengguna yang terotentikasi
+        $userId = Auth::id();
+
         // Memuat data dosen beserta relasi pengampu_mk -> matkul_mhs -> mahasiswa
         $user = User::with('dosen.pengampu_mk.matkulMhs.mahasiswa')->find($userId);
 

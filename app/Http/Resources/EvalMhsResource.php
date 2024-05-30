@@ -15,6 +15,7 @@ class EvalMhsResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id_matkul' => $this->id_matkul,
             'nama_matkul' => $this->nama_matkul,
             'semester' => $this->semester,
             'kelas' => [
