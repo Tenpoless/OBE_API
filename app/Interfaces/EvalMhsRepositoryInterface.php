@@ -4,5 +4,5 @@ namespace App\Interfaces;
 
 interface EvalMhsRepositoryInterface
 {
-    public function index();
+    public function findByMatkulId($id);
 }

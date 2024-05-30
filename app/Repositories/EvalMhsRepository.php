@@ -7,11 +7,9 @@ use App\Interfaces\EvalMhsRepositoryInterface;
 
 class EvalMhsRepository implements EvalMhsRepositoryInterface
 {
-    /**
-     * Create a new class instance.
-     */
-    public function index()
+    public function findByMatkulId($id)
     {
-        return Matkul::all();
+        // Menggunakan first() untuk mendapatkan satu model daripada koleksi
+        return Matkul::where('id_matkul', $id)->first();
     }
 }

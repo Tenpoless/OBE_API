@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth; // Tambahkan ini untuk menggunakan Auth
 
 class EvaluasiMahasiswaDataController extends Controller
 {
-    public function getMahasiswaByDosen()
+    public function getMahasiswaByMatkul($id_matkul)
     {
         // Dapatkan ID pengguna yang terotentikasi
         $userId = Auth::id();
@@ -21,14 +21,18 @@ class EvaluasiMahasiswaDataController extends Controller
             return response()->json(['message' => 'Data not found'], 404);
         }
 
-        // Mengambil data matkul_mhs melalui relasi pengampu_mk dari dosen yang bersangkutan
-        $matkulMhs = $user->dosen->pengampu_mk->flatMap(function ($pengampuMK) {
-            return $pengampuMK->matkulMhs;
+        // Filter data matkul_mhs berdasarkan id_matkul
+        $matkulMhs = $user->dosen->pengampu_mk
+            ->where('id_matkul', $id_matkul)
+            ->flatMap(function ($pengampuMK) {
+                return $pengampuMK->matkulMhs;
+            });
+
+        // Mengambil data mahasiswa dari hasil filter
+        $mahasiswa = $matkulMhs->map(function ($matkulMhs) {
+            return $matkulMhs->mahasiswa;
         });
 
-        // Menghapus duplikasi berdasarkan id_user
-        $uniqueMatkulMhs = $matkulMhs->unique('id_user');
-
-        return EvalMhsDataResource::collection($uniqueMatkulMhs);
+        return EvalMhsDataResource::collection($mahasiswa);
     }
 }

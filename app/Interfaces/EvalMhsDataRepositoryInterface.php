@@ -4,5 +4,5 @@ namespace App\Interfaces;
 
 interface EvalMhsDataRepositoryInterface
 {
-    // Define the methods that will be implemented
+    public function tampil_evaluasi_mhs($id_matkul, $id_pengampu);
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\EvalMhsResource;
@@ -10,35 +9,29 @@ use App\Interfaces\EvalMhsRepositoryInterface;
 
 class EvaluasiMahasiswaController extends Controller
 {
-    public function show() {
-        $user = Auth::user();
-        $data = $this->evalMhsRepository->findById($user->id_user);  // Use the correct key name
-        if ($data) {
-            return new EvalMhsResource($data);
-        }
-        return response()->json(['message' => 'Data not found'], 404);
+    protected $evalMhsRepository;
+
+    public function __construct(EvalMhsRepositoryInterface $evalMhsRepository)
+    {
+        $this->evalMhsRepository = $evalMhsRepository;
     }
 
-    public function getMatkulByUser() {
-        $user = Auth::user();
+    // Mengambil data evaluasi mahasiswa berdasarkan id matkul
+    public function show($id_matkul)
+    {
+        try {
+            $data = $this->evalMhsRepository->findByMatkulId($id_matkul);
 
-        if (!$user) {
-            return response()->json(['message' => 'User not authenticated'], 401);
+            // Jika data ditemukan, kembalikan sebagai JSON resource
+            if ($data) {
+                return new EvalMhsResource($data);
+            }
+
+            // Jika tidak ditemukan, kembalikan response JSON dengan status 404
+            return response()->json(['message' => 'Data not found'], 404);
+        } catch (\Exception $e) {
+            // Tangani exception dengan mengembalikan response JSON dengan status 500 (Internal Server Error)
+            return response()->json(['message' => 'Internal Server Error'], 500);
         }
-
-        $dosen = $user->dosen;
-        if (!$dosen) {
-            return response()->json(['message' => 'Dosen not found'], 404);
-        }
-
-        $matkuls = $dosen->matkul;
-        if (!$matkuls) {
-            return response()->json(['message' => 'Matkul not found'], 404);
-        }
-
-        // Gunakan metode unique() untuk menghapus duplikasi berdasarkan id_matkul
-        $uniqueMatkuls = $matkuls->unique('id_matkul');
-        
-        return EvalMhsResource::collection($uniqueMatkuls);
     }
 }
