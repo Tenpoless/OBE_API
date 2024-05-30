@@ -3,18 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'user';
 
     /**
@@ -31,6 +29,8 @@ class User extends Authenticatable
      */
     public $incrementing = true;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -42,6 +42,7 @@ class User extends Authenticatable
         'password',
         'status',
         'level',
+        'date_created'
     ];
 
     /**
@@ -54,15 +55,41 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
+    // /**
+    //  * Get the attributes that should be cast.
+    //  *
+    //  * @return array<string, string>
+    //  */
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    //     'password' => 'hashed',
+    // ];
+
+    public function verifyPassword($password)
+    {
+        return $this->password === md5($password);
+        // return Hash::check($password, $this->password);
+    }
+
+        /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
      *
-     * @return array<string, string>
+     * @return mixed
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 
     /**
      * Get the dosen associated with the user.

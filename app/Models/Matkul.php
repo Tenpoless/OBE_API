@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Matkul extends Model
 {
     use HasFactory;
-
     protected $table = 'matkul';
     protected $primaryKey = 'id_matkul';
     public $timestamps = false;

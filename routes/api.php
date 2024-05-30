@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HalamanUtamaController;
@@ -7,11 +8,9 @@ use App\Http\Controllers\EvaluasiMahasiswaController;
 use App\Http\Controllers\EvaluasiMahasiswaDataController;
 use App\Http\Controllers\EvaluasiMahasiswaDetailController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('api')->group(function () {
+Route::middleware('auth:api')->group(function () {
     // Route untuk menampilkan hanya nama dosen - SCR2.1
     Route::get('/halaman-utama-nama/{id}', [HalamanUtamaController::class, 'getNamaDosen']);
 
