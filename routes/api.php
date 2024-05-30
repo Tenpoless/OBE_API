@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EvaluasiController;
 use App\Http\Controllers\PengampuMkController;
+use App\Http\Controllers\CplController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -22,4 +23,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/eval/{id_detailrps}', [EvaluasiController::class, 'show']);
     Route::put('/eval/{id_detailrps}', [EvaluasiController::class, 'update']);
     Route::get('/matkul', [PengampuMkController::class, 'show']);
+    Route::get('/total_cpl/{id_user}', [CplController::class, 'show']);
 });
