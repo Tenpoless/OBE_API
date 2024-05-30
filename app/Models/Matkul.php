@@ -23,4 +23,19 @@ class Matkul extends Model
         "id_jurusan",
         "id_tahun"
     ];
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
+    }
+
+    public function deskripsiMk()
+    {
+        return $this->hasOne(DeskripsiMk::class, 'id_matkul', 'id_matkul');
+    }
+
+    public function pengampuMk()
+    {
+        return $this->hasMany(PengampuMk::class, 'id_matkul');
+    }
 }
