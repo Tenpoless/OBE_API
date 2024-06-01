@@ -29,9 +29,8 @@ Route::middleware('auth:api')->group(function () {
     //screen 3
     Route::get('/matkul', [PengampuMkController::class, 'show']);
     Route::get('/matkul/{id_matkul}/{id_pengampu}', [PengampuMkController::class, 'showMatkul']);
-    //screen 6
-    Route::get('/total_cpl/{id_user}', [CplController::class, 'show']);
-    
-    // SCR6
+
+    // Screen 6
     Route::get('/matkul-cpl/{userId}', [MatkulCplController::class, 'showByUserId']);
+    Route::get('/total_cpl/{id_user}', [CplController::class, 'show']);
 });
