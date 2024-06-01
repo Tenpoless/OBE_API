@@ -38,7 +38,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'destroy']);
 
     //screen 5
-    Route::get('mahasiswa-by-matkul/{id_matkul}', [EvaluasiMahasiswaDataController::class, 'showByMatkul']);
+    Route::get('/mahasiswa-by-matkul/{id_matkul}', [EvaluasiMahasiswaDataController::class, 'showByMatkul']);
     Route::get('/evaluasi-mahasiswa-detail/{id}', [EvaluasiMahasiswaDetailController::class, 'getEvaluasiDetailsByUserId']);
 
     //screen 6
