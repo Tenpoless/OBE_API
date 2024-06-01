@@ -24,27 +24,22 @@ class EvalRepository implements EvalRepositoryInterface
         return $evaluasi;
     }
 
-    public function getEvaluasiByMinggu($id_matkul, $minggu)
+    public function getEvaluasiByMinggu($id_matkul, $id_detailrps)
     {
         $evaluasi = DB::table('detail_rps')
         ->select('detail_rps.id_detailrps', 'detail_rps.minggu', 'detail_rps.id_subcpmk', 'detail_rps.bobot', 'detail_rps.id_matkul', 'subcpmk.id_subcpmk', 'subcpmk.subcpmk', 'subcpmk.id_matkul', 'evaluasi.*') // Pilih kolom yang diperlukan
         ->leftJoin('subcpmk', 'detail_rps.id_subcpmk', '=', 'subcpmk.id_subcpmk')
         ->leftJoin('evaluasi', 'detail_rps.id_detailrps', '=', 'evaluasi.id_detailrps')
         ->where('detail_rps.id_matkul', $id_matkul)
-        ->where('detail_rps.minggu', $minggu) // Filter berdasarkan minggu
+        ->where('detail_rps.id_detailrps', $id_detailrps) // Filter berdasarkan minggu
         ->get();
 
         return $evaluasi;
     }
 
-    public function store(array $data, $id_matkul, $id_pengampu)
+    public function store(array $data)
     {
-        $pengampu = DB::table('pengampu_mk')
-        ->where('id_matkul', $id_matkul)
-        ->where('id_pengampu', $id_pengampu)
-        ->get();
-
-        
+        return Evaluasi::create($data);
     }
     
     public function update(array $data, $id_evaluasi)
@@ -52,7 +47,7 @@ class EvalRepository implements EvalRepositoryInterface
         return Evaluasi::where('id_evaluasi', $id_evaluasi)->update($data);
     }
 
-    public function delete($id_evaluasi,$id_matkul,  $id_pengampu)
+    public function delete($id_evaluasi)
     {
         $evaluasi = Evaluasi::find($id_evaluasi);
 

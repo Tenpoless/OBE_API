@@ -39,7 +39,7 @@ class EvaluasiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEvaluasiRequest $request, $id_matkul, $id_pengampu)
+    public function store(StoreEvaluasiRequest $request)
     {
         $details =[
             'id_detailrps'      => $request->id_detailrps,
@@ -50,7 +50,7 @@ class EvaluasiController extends Controller
 
         DB::beginTransaction();
         try{
-            $evaluasi = $this->evalRepositoryInterface->store($details, $id_matkul, $id_pengampu);
+            $evaluasi = $this->evalRepositoryInterface->store($details);
             
             DB::commit();
             return ApiResponseClass::sendResponse(new EvalResource($evaluasi), 'Evaluasi Create Success', 201);
@@ -70,9 +70,9 @@ class EvaluasiController extends Controller
         return ApiResponseClass::sendResponse(new EvalResource($evaluasi),'',200);
     }
 
-    public function showEvaluasi($id_matkul, $minggu)
+    public function showEvaluasi($id_matkul, $id_detailrps)
     {
-        $evaluasi = $this->evalRepositoryInterface->getEvaluasiByMinggu($id_matkul, $minggu);
+        $evaluasi = $this->evalRepositoryInterface->getEvaluasiByMinggu($id_matkul, $id_detailrps);
 
         return ApiResponseClass::sendResponse($evaluasi,'',200);
     }
@@ -112,9 +112,9 @@ class EvaluasiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id_evaluasi,$id_matkul,  $id_pengampu)
+    public function destroy($id_evaluasi)
     {
-        $result = $this->evalRepositoryInterface->delete($id_evaluasi,$id_matkul,  $id_pengampu);
+        $result = $this->evalRepositoryInterface->delete($id_evaluasi);
 
         if ($result) {
             return ApiResponseClass::sendResponse('true', 'Evaluasi Delete Success', 200);
