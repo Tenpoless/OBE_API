@@ -39,7 +39,7 @@ class EvaluasiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEvaluasiRequest $request)
+    public function store(StoreEvaluasiRequest $request, $id_matkul, $id_pengampu)
     {
         $details =[
             'id_detailrps'      => $request->id_detailrps,
@@ -50,7 +50,7 @@ class EvaluasiController extends Controller
 
         DB::beginTransaction();
         try{
-            $evaluasi = $this->evalRepositoryInterface->store($details);
+            $evaluasi = $this->evalRepositoryInterface->store($details, $id_matkul, $id_pengampu);
             
             DB::commit();
             return ApiResponseClass::sendResponse(new EvalResource($evaluasi), 'Evaluasi Create Success', 201);

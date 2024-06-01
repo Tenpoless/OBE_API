@@ -26,4 +26,9 @@ class DetailRpsRepository implements DetailRpsRepositoryInterface
 
         return $minggu;
     }
+
+    public function deleteEvaluasi($id_detailrps, $id_evaluasi)
+    {
+        
+    }
 }

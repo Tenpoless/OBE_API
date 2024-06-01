@@ -37,9 +37,9 @@ class EvalRepository implements EvalRepositoryInterface
         return $evaluasi;
     }
 
-    public function store(array $data)
+    public function store(array $data, $id_matkul, $id_pengampu)
     {
-        return Evaluasi::create($data);
+        
     }
     
     public function update(array $data, $id_evaluasi)
@@ -54,8 +54,36 @@ class EvalRepository implements EvalRepositoryInterface
         if (!$evaluasi) {
             return false; // Gagal menghapus karena evaluasi tidak ditemukan
         }
-    
+
         $evaluasi->delete();
         return true;
     }
 }
+
+        // // Ambil id_matkul dan minggu dari data yang diberikan
+        // $id_matkul = $data['id_matkul'];
+
+        // // Ambil minggu dari tabel detail_rps
+        // $minggu = DB::table('detail_rps')
+        //     ->where('id_matkul', $id_matkul)
+        //     ->pluck('minggu')
+        //     ->first();
+
+        // $bentuk_asesmen = DB::table('evaluasi')
+        //     ->where(function ($query) {
+        //         $query->where('asesmen', 'Tes')
+        //             ->orWhere('asesmen', 'Non Tes');
+        //     })
+        //     ->pluck('asesmen')
+        //     ->first();
+
+        // // Pastikan minggu ditemukan sebelum membuat data evaluasi
+        // if ($minggu) {
+        //     // Tambahkan minggu ke dalam data yang akan disimpan
+        //     $data['minggu'] = $minggu;
+
+        //     return Evaluasi::create($data);
+        // } else {
+        //     // Kembalikan pesan kesalahan jika minggu tidak ditemukan
+        //     return response()->json(['message' => 'Minggu not found for this id_matkul'], 404);
+        // }
