@@ -17,7 +17,7 @@ class DetailRpsRepository implements DetailRpsRepositoryInterface
         return DetailRps::findOrFail($id_detailrps);
     }
 
-    public function getMingguByIdMatkul($id_matkul)
+    public function getMingguByIdMatkul($id_matkul, $id_pengampu)
     {
         // Mengambil semua minggu yang sesuai dengan id_matkul
         $minggu = DetailRps::where('id_matkul', $id_matkul)->pluck('minggu');
