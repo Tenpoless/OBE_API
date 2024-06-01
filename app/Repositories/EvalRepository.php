@@ -41,7 +41,7 @@ class EvalRepository implements EvalRepositoryInterface
     {
         return Evaluasi::create($data);
     }
-    
+
     public function update(array $data, $id_evaluasi)
     {
         return Evaluasi::where('id_evaluasi', $id_evaluasi)->update($data);
