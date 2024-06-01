@@ -25,5 +25,11 @@ class Cpl extends Model
     public function jurusan()
     {
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
+
+    }
+
+    public function evaluasi_mhs()
+    {
+        return $this->belongsTo(EvaluasiMhs::class, 'id_cpl', 'id_cpl');
     }
 }

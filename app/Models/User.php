@@ -15,16 +15,29 @@ class User extends Authenticatable implements JWTSubject
 
     protected $table = 'user';
 
-    protected $primaryKey = 'id_user';
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id_user'; // Menentukan primary key 'id_user'
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
 
     public $timestamps = false;
 
     /**
-     * fillable
+     * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
+        'id_user',
         'email',
         'password',
         'status',
@@ -32,10 +45,25 @@ class User extends Authenticatable implements JWTSubject
         'date_created'
     ];
 
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    // /**
+    //  * Get the attributes that should be cast.
+    //  *
+    //  * @return array<string, string>
+    //  */
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    //     'password' => 'hashed',
+    // ];
 
     public function verifyPassword($password)
     {
@@ -63,8 +91,21 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * Get the dosen associated with the user.
+     */
     public function dosen()
     {
-        return $this->hasOne(Dosen::class, 'id_user');
+        return $this->hasOne(Dosen::class, 'id_user', 'id_user');
+    }
+
+    public function evaluasi_mhs()
+    {
+        return $this->hasMany(EvaluasiMhs::class, 'id_user', 'id_user');
+    }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'id_user', 'id_user');
     }
 }

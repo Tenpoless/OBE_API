@@ -15,6 +15,14 @@ use App\Interfaces\SubCpmkRepositoryInterface;
 use App\Interfaces\DetailRpsRepositoryInterface;
 use App\Interfaces\MatkulCplRepositoryInterface;
 use App\Interfaces\PengampuMkRepositoryInterface;
+use App\Repositories\EvalMhsRepository;
+use App\Repositories\EvalMhsDataRepository;
+use App\Repositories\EvalMhsDetailRepository;
+use App\Repositories\HalUtamaRepository;
+use App\Interfaces\EvalMhsRepositoryInterface;
+use App\Interfaces\EvalMhsDataRepositoryInterface;
+use App\Interfaces\EvalMhsDetailRepositoryInterface;
+use App\Interfaces\HalUtamaRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -29,6 +37,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PengampuMkRepositoryInterface::class, PengampuMkRepository::class);
         $this->app->bind(CplRepositoryInterface::class, CplRepository::class);
         $this->app->bind(MatkulCplRepositoryInterface::class, MatkulCplRepository::class);
+        $this->app->bind(HalUtamaRepositoryInterface::class, HalUtamaRepository::class);
+        $this->app->bind(EvalMhsRepositoryInterface::class, EvalMhsRepository::class);
+        $this->app->bind(EvalMhsDataRepositoryInterface::class, EvalMhsDataRepository::class);
+        $this->app->bind(EvalMhsDetailRepositoryInterface::class, EvalMhsDetailRepository::class);
     }
 
     /**
