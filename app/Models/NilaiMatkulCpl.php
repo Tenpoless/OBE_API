@@ -14,6 +14,7 @@ class NilaiMatkulCpl extends Model
     protected $primaryKey = 'id_nilai_matkul_cpl';
 
     protected $fillable = [
+        'id_nilai_matkul_cpl',
         'id_cplmk',
         'id_matkul',
         'id_pengampu',

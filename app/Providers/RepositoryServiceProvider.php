@@ -2,17 +2,19 @@
 
 namespace App\Providers;
 
-use App\Interfaces\DetailRpsRepositoryInterface;
-use App\Interfaces\EvalRepositoryInterface;
-use App\Interfaces\SubCpmkRepositoryInterface;
-use App\Interfaces\PengampuMkRepositoryInterface;
-use App\Interfaces\CplRepositoryInterface;
-use App\Repositories\DetailRpsRepository;
+use App\Repositories\CplRepository;
 use App\Repositories\EvalRepository;
 use App\Repositories\SubCpmkRepository;
-use App\Repositories\PengampuMkRepository;
-use App\Repositories\CplRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\DetailRpsRepository;
+use App\Repositories\MatkulCplRepository;
+use App\Interfaces\CplRepositoryInterface;
+use App\Repositories\PengampuMkRepository;
+use App\Interfaces\EvalRepositoryInterface;
+use App\Interfaces\SubCpmkRepositoryInterface;
+use App\Interfaces\DetailRpsRepositoryInterface;
+use App\Interfaces\MatkulCplRepositoryInterface;
+use App\Interfaces\PengampuMkRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SubCpmkRepositoryInterface::class, SubCpmkRepository::class);
         $this->app->bind(PengampuMkRepositoryInterface::class, PengampuMkRepository::class);
         $this->app->bind(CplRepositoryInterface::class, CplRepository::class);
+        $this->app->bind(MatkulCplRepositoryInterface::class, MatkulCplRepository::class);
     }
 
     /**
