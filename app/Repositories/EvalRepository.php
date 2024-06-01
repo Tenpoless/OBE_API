@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Evaluasi;
 use App\Models\DetailRps;
 use App\Interfaces\EvalRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class EvalRepository implements EvalRepositoryInterface
 {
@@ -19,6 +20,19 @@ class EvalRepository implements EvalRepositoryInterface
         $detailrps = DetailRps::findOrFail($id_detailrps);
 
         $evaluasi = Evaluasi::where('id_detailrps', $detailrps->id_detailrps)->first();
+
+        return $evaluasi;
+    }
+
+    public function getEvaluasiByMinggu($id_matkul, $minggu)
+    {
+        $evaluasi = DB::table('detail_rps')
+        ->select('detail_rps.id_detailrps', 'detail_rps.minggu', 'detail_rps.id_subcpmk', 'detail_rps.bobot', 'detail_rps.id_matkul', 'subcpmk.id_subcpmk', 'subcpmk.subcpmk', 'subcpmk.id_matkul', 'evaluasi.*') // Pilih kolom yang diperlukan
+        ->leftJoin('subcpmk', 'detail_rps.id_subcpmk', '=', 'subcpmk.id_subcpmk')
+        ->leftJoin('evaluasi', 'detail_rps.id_detailrps', '=', 'evaluasi.id_detailrps')
+        ->where('detail_rps.id_matkul', $id_matkul)
+        ->where('detail_rps.minggu', $minggu) // Filter berdasarkan minggu
+        ->get();
 
         return $evaluasi;
     }

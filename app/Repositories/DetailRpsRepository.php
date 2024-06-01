@@ -27,17 +27,3 @@ class DetailRpsRepository implements DetailRpsRepositoryInterface
         return $minggu;
     }
 }
-
-        // // Mengambil semua minggu yang sesuai dengan id_matkul
-        // $minggu = DetailRps::where('id_matkul', $id_matkul)->pluck('minggu');
-        
-        // // Memeriksa apakah minggu ditemukan
-        // if ($minggu->isEmpty()) {
-        //     return response()->json(['message' => 'Minggu not found'], 404);
-        // }
-        
-        // // Mengambil semua data dari tabel detail_rps yang memiliki minggu yang sesuai
-        // $data = DetailRps::whereIn('minggu', $minggu)->get(['id_detailrps', 'minggu']);
-        
-        // // Mengembalikan data dalam format JSON
-        // return $data;

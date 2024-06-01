@@ -15,7 +15,9 @@ Route::middleware('auth:api')->group(function () {
     });
 
     // Route::apiResource('/evaluasi', EvaluasiController::class);
+    //screen 4
     Route::get('/detailrps/minggu/{id_matkul}', [DetailRpsController::class, 'showMinggu']);
+    Route::get('/evaluasi/{id_matkul}/{minggu}', [EvaluasiController::class, 'showEvaluasi']);
     Route::get('/detailrps/{id_detailrps}', [DetailRpsController::class, 'show']);
     Route::get('/detailrps', [DetailRpsController::class, 'index']);
     Route::get('/subcpmk/{id_detailrps}', [SubCpmkController::class, 'show']);

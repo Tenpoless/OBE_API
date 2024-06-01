@@ -70,6 +70,13 @@ class EvaluasiController extends Controller
         return ApiResponseClass::sendResponse(new EvalResource($evaluasi),'',200);
     }
 
+    public function showEvaluasi($id_matkul, $minggu)
+    {
+        $evaluasi = $this->evalRepositoryInterface->getEvaluasiByMinggu($id_matkul, $minggu);
+
+        return ApiResponseClass::sendResponse($evaluasi,'',200);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

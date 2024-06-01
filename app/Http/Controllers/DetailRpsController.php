@@ -31,12 +31,6 @@ class DetailRpsController extends Controller
         return ApiResponseClass::sendResponse(new DetailRpsResource($detailRps),'',200);
     }
 
-    // public function showMinggu($id_matkul)
-    // {
-    //     $minggu = $this->detailRpsRepositoryInterface->getMingguByIdMatkul($id_matkul);
-
-    //     return ApiResponseClass::sendResponse(new DetailRpsResource($minggu),'',200);
-    // }
     public function showMinggu($id_matkul)
     {
         // Mengambil minggu berdasarkan id_matkul dari repository
