@@ -39,6 +39,11 @@ class EvalRepository implements EvalRepositoryInterface
 
     public function store(array $data, $id_matkul, $id_pengampu)
     {
+        $pengampu = DB::table('pengampu_mk')
+        ->where('id_matkul', $id_matkul)
+        ->where('id_pengampu', $id_pengampu)
+        ->get();
+
         
     }
     

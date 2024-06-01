@@ -35,11 +35,15 @@ class AuthController extends Controller
                     // Dapatkan level user
                     $level = $user->level;
 
+                    $id_user = $user->id_user;
+
+                    $status = $user->status;
+
                     // Log informasi pengguna untuk debugging
                     Log::info('User ID: ' . $user->id . ', Level: ' . $level);
 
                     // Kembalikan token dan level
-                    return response()->json(compact('token', 'level'));
+                    return response()->json(compact('token', 'level', 'id_user', 'status'));
                 } else {
                     // Jika user berlevel selain 3 dan 4
                     return response()->json(['error' => 'Anda tidak terdaftar'], 401);
