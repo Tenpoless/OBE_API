@@ -13,7 +13,7 @@ class DetailRps extends Model
 
     protected $table = "detail_rps";
 
-    protected $foreignKey = "id_detailrps";
+    protected $primaryKey = "id_detailrps";
 
     protected $fillable = [
         "minggu",
@@ -37,5 +37,11 @@ class DetailRps extends Model
     public function matkul()
     {
         return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');
+    }
+    
+    //definisi relasi detail_rps dan evaluasi
+    public function evaluasi()
+    {
+        return $this->hasMany(Evaluasi::class, 'id_detailrps');
     }
 }

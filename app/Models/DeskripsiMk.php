@@ -5,23 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubCpmk extends Model
+class DeskripsiMk extends Model
 {
     use HasFactory;
 
-    protected $table = "subcpmk";
+    protected $table = 'deskripsi_mk';
 
-    protected $primaryKey = "id_subcpmk";
+    protected $primaryKey = 'id_deskripsimk';
 
     protected $fillable = [
-        "kode_subcpmk",
-        "subcpmk",
-        "kode_baru",
-        "id_cplmk",
-        "id_matkul"
+        'rumpun_mk',
+        'deskripsi_mk',
+        'id_matkul'
     ];
 
-    public function matkul(){
+    public function matkul()
+    {
         return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');
     }
 }

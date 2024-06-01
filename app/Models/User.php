@@ -62,4 +62,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'id_user');
+    }
 }
