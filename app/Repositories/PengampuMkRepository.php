@@ -8,6 +8,7 @@ use App\Models\Dosen;
 use App\Models\Matkul;
 use App\Models\PengampuMk;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PengampuMkRepository implements PengampuMkRepositoryInterface
 {
@@ -39,5 +40,23 @@ class PengampuMkRepository implements PengampuMkRepositoryInterface
         });
 
         return $response;
+    }
+
+    public function getMatkulById($id_matkul, $id_pengampu)
+    {
+        $data = DB::table('pengampu_mk')
+        ->where('id_matkul', $id_matkul)
+        ->where('id_pengampu', $id_pengampu)
+        ->limit(1)
+        ->first();
+
+        $nama_matkul = DB::table('matkul')
+        ->where('id_matkul', $id_matkul)
+        ->pluck('nama_matkul')
+        ->first();
+
+        $data->nama_matkul = $nama_matkul;
+
+        return $data;
     }
 }
