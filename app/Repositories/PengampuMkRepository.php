@@ -32,6 +32,7 @@ class PengampuMkRepository implements PengampuMkRepositoryInterface
             $matkul = $matkuls->firstWhere('id_matkul', $pengampu->id_matkul);
             return [
                 'id_matkul' => $pengampu->id_matkul,
+                'id_pengampu' => $pengampu->id_pengampu,
                 'nama_matkul' => $matkul ? $matkul->nama_matkul : null,
                 'kelas' => $pengampu->kelas,
             ];
