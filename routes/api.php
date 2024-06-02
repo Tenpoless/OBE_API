@@ -22,26 +22,26 @@ Route::middleware('auth:api')->group(function () {
         return $request->user();
     });
 
-    // Route untuk menampilkan hanya nama dosen - SCR2.1
+    // screen 2
     Route::get('/halaman-utama-nama', [HalamanUtamaController::class, 'getNamaDosen']);
     Route::get('/halaman-utama-profile', [HalamanUtamaController::class, 'getProfileDosen']);
 
-    //screen 3
+    // screen 3
     Route::get('/matkul', [PengampuMkController::class, 'show']);
     Route::get('/matkul/{id_matkul}/{id_pengampu}', [PengampuMkController::class, 'showMatkul']);
 
-    //screen 4
+    // screen 4
     Route::get('/detailrps/minggu/{id_matkul}', [DetailRpsController::class, 'showMinggu']);
     Route::get('/evaluasi/{id_matkul}/{minggu}', [EvaluasiController::class, 'showEvaluasi']);
     Route::post('/evaluasi', [EvaluasiController::class, 'store']);
     Route::put('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'update']);
     Route::delete('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'destroy']);
 
-    //screen 5
+    // screen 5
     Route::get('/mahasiswa-by-matkul/{id_matkul}', [EvaluasiMahasiswaDataController::class, 'showByMatkul']);
     Route::get('/evaluasi-mahasiswa-detail/{id}', [EvaluasiMahasiswaDetailController::class, 'getEvaluasiDetailsByUserId']);
 
-    //screen 6
+    // screen 6
     Route::get('/matkul-cpl/{userId}', [MatkulCplController::class, 'showByUserId']);
     Route::get('/total_cpl/{id_user}', [CplController::class, 'show']);
 });
