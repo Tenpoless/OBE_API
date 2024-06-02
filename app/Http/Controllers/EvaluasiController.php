@@ -29,14 +29,6 @@ class EvaluasiController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreEvaluasiRequest $request)
@@ -75,14 +67,6 @@ class EvaluasiController extends Controller
         $evaluasi = $this->evalRepositoryInterface->getEvaluasiByMinggu($id_matkul, $id_detailrps);
 
         return ApiResponseClass::sendResponse($evaluasi,'',200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Evaluasi $evaluasi)
-    {
-        //
     }
 
     /**

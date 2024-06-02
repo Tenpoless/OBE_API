@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\HalUtamaRepositoryInterface;
 use App\Http\Resources\HalamanUtamaResource;
 use App\Http\Resources\ProfileDosenResource;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; // tambahkan ini untuk menggunakan Auth
+use Illuminate\Support\Facades\Auth;
 
 class HalamanUtamaController extends Controller
 {

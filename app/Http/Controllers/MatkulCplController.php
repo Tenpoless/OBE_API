@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\MatkulCplRepositoryInterface;
 use App\Http\Resources\MatkulCplResource;
-use Illuminate\Http\Request;
 
 class MatkulCplController extends Controller
 {

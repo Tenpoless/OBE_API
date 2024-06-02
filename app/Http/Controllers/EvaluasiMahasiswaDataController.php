@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\EvalMhsDataRepositoryInterface;
 use App\Http\Resources\EvalMhsDataResource;
-use Illuminate\Http\Request;
 
 class EvaluasiMahasiswaDataController extends Controller
 {

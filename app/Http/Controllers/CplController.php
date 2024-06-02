@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Interfaces\CplRepositoryInterface;
-use App\Repositories\CplRepository;
 use App\Classes\ApiResponseClass;
 
 class CplController extends Controller

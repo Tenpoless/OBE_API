@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Interfaces\PengampuMkRepositoryInterface;
-use App\Models\User;
 use App\Models\Dosen;
 use App\Models\Matkul;
 use App\Models\PengampuMk;
