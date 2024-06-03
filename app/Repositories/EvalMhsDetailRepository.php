@@ -2,22 +2,15 @@
 
 namespace App\Repositories;
 
+use App\Models\EvaluasiMhs;
 use App\Interfaces\EvalMhsDetailRepositoryInterface;
-use App\Models\Mahasiswa;
 
 class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
 {
-    public function getEvalMhsDetailsByUserId($id)
+    public function findByUserId($id_user)
     {
-        return Mahasiswa::where('id_user', $id)
-            ->with([
-                'evaluasi_mhs.evaluasi',
-                'evaluasi_mhs.cpl',
-                'evaluasi_mhs.subcpmk',
-                'evaluasi_mhs.detailRps'
-            ])
-            ->get()
-            ->pluck('evaluasi_mhs')
-            ->flatten();
+        return EvaluasiMhs::where('id_user', $id_user)
+            ->with(['cpl', 'subcpmk', 'evaluasi.detailRps'])
+            ->get();
     }
 }
