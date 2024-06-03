@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use app\Models\SubCpmk;
-use app\Models\Matkul;
+use App\Models\SubCpmk;
+use App\Models\Matkul;
 
 class DetailRps extends Model
 {
     use HasFactory;
 
     protected $table = "detail_rps";
-
-    protected $foreignKey = "id_detailrps";
+    protected $primaryKey = "id_detailrps";
 
     protected $fillable = [
         "minggu",
@@ -27,7 +26,7 @@ class DetailRps extends Model
         "id_matkul"
     ];
 
-    // Definisikan relasi ke model Subcpmk
+    // Definisikan relasi ke model SubCpmk
     public function subcpmk()
     {
         return $this->belongsTo(SubCpmk::class, 'id_subcpmk', 'id_subcpmk');

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Resources\EvalMhsDetailResource;
 use App\Interfaces\EvalMhsDetailRepositoryInterface;
-use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluasiMahasiswaDetailController extends Controller
 {
@@ -16,17 +16,13 @@ class EvaluasiMahasiswaDetailController extends Controller
         $this->evalMhsDetailRepository = $evalMhsDetailRepository;
     }
 
-    public function getEvaluasiDetailsByUserId($id)
+    public function show($id_user)
     {
         try {
-            $evaluasiDetails = $this->evalMhsDetailRepository->getEvalMhsDetailsByUserId($id);
-            if ($evaluasiDetails->isEmpty()) {
-                return response()->json(['message' => 'Data not found'], Response::HTTP_NOT_FOUND);
-            }
-            return response()->json(EvalMhsDetailResource::collection($evaluasiDetails), Response::HTTP_OK);
+            $evaluasiMhsDetail = $this->evalMhsDetailRepository->findByUserId($id_user);
+            return EvalMhsDetailResource::collection($evaluasiMhsDetail);
         } catch (\Exception $e) {
-            Log::error('Error fetching evaluasi details: ' . $e->getMessage());
-            return response()->json(['message' => 'Internal Server Error'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }
