@@ -9,12 +9,11 @@ class EvalMhsDetailResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id_cpl' => $this->cpl->id_cpl ?? null,
-            'subcpmk' => $this->subcpmk->subcpmk ?? null,
-            'asesmen' => $this->evaluasi->asesmen ?? null,
-            'bobot' => $this->evaluasi->detailRps->bobot ?? null,
-            'nilai_mhs' => $this->nilai_mhs,
-            'bobot_mhs' => $this->bobot_mhs,
+            'kode_cpl' => $this->whenNotNull($this->kode_cpl, 'N/A'),
+            'subcpmk' => $this->whenNotNull($this->subcpmk, 'N/A'),
+            'asesmen' => $this->whenNotNull($this->asesmen, 'N/A'),
+            'bobot' => $this->whenNotNull($this->bobot, 'N/A'),
+            'nilai_mhs' => $this->whenNotNull($this->nilai_mhs, 'N/A'),
         ];
     }
 }

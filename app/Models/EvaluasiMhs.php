@@ -4,12 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Matkul;
-use App\Models\Cpl;
-use App\Models\Subcpmk;
-use App\Models\Evaluasi;
-use App\Models\DetailRps;
-use App\Models\User;
 
 class EvaluasiMhs extends Model
 {
@@ -48,7 +42,7 @@ class EvaluasiMhs extends Model
 
     public function subcpmk()
     {
-        return $this->belongsTo(Subcpmk::class, 'id_subcpmk', 'id_subcpmk');
+        return $this->belongsTo(SubCpmk::class, 'id_subcpmk', 'id_subcpmk');
     }
 
     public function evaluasi()

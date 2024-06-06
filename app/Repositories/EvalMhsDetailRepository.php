@@ -2,56 +2,41 @@
 
 namespace App\Repositories;
 
-use App\Models\EvaluasiMhs;
 use App\Interfaces\EvalMhsDetailRepositoryInterface;
+use App\Models\Cpl;
+use Illuminate\Support\Facades\Log;
 
 class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
 {
-    public function findByUserId($id_user)
+    public function getDetailsByUserId($id_user)
     {
-        return EvaluasiMhs::where('id_user', $id_user)
-            ->with(['cpl', 'subcpmk', 'evaluasi.detailRps'])
+        $details = Cpl::join('subcpmk', 'cpl.id_cpl', '=', 'subcpmk.id_cplmk')
+            ->join('detail_rps', 'subcpmk.id_subcpmk', '=', 'detail_rps.id_subcpmk')
+            ->join('evaluasi', 'detail_rps.id_detailrps', '=', 'evaluasi.id_detailrps')
+            ->join('evaluasi_mhs', 'evaluasi.id_evaluasi', '=', 'evaluasi_mhs.id_evaluasi2')
+            ->where('evaluasi_mhs.id_user', $id_user)
+            ->select('cpl.kode_cpl', 'subcpmk.subcpmk', 'evaluasi.asesmen', 'detail_rps.bobot', 'evaluasi_mhs.nilai_mhs')
             ->get();
+
+        Log::info('User ID: ' . $id_user);
+        Log::info('Details: ', $details->toArray());
+
+        return $details;
     }
 
-    public function hitung($nilai_mhs, $bobot)
+    public function getDetailsByMatkulId($id_matkul)
     {
-        $hasil = $nilai_mhs * $bobot;
-        $hasil2 = $hasil / 100;
-        return ['hasil' => $hasil, 'hasil2' => $hasil2];
-    }
+        $details = Cpl::join('subcpmk', 'cpl.id_cpl', '=', 'subcpmk.id_cplmk')
+            ->join('detail_rps', 'subcpmk.id_subcpmk', '=', 'detail_rps.id_subcpmk')
+            ->join('evaluasi', 'detail_rps.id_detailrps', '=', 'evaluasi.id_detailrps')
+            ->join('evaluasi_mhs', 'evaluasi.id_evaluasi', '=', 'evaluasi_mhs.id_evaluasi2')
+            ->where('detail_rps.id_matkul', $id_matkul)
+            ->select('cpl.kode_cpl', 'subcpmk.subcpmk', 'evaluasi.asesmen', 'detail_rps.bobot', 'evaluasi_mhs.nilai_mhs')
+            ->get();
 
-    public function simpanHasil($id_user, $data)
-    {
-        foreach ($data as $item) {
-            $evaluasi = EvaluasiMhs::where('id_user', $id_user)
-                ->where('id_matkul', $item['id_matkul'])
-                ->where('id_cplmk', $item['id_cplmk'])
-                ->where('id_pengampu', $item['id_pengampu'])
-                ->first();
+        Log::info('Matkul ID: ' . $id_matkul);
+        Log::info('Details: ', $details->toArray());
 
-            if ($evaluasi) {
-                // Update existing record
-                $evaluasi->update([
-                    'nilai_matkul_cpl' => $item['nilai_matkul_cpl'],
-                    'hasil' => $item['hasil'],
-                    'hasil2' => $item['hasil2']
-                ]);
-            } else {
-                // Create new record
-                EvaluasiMhs::create([
-                    'id_user' => $id_user,
-                    'id_jurusan' => $item['id_jurusan'],
-                    'id_matkul' => $item['id_matkul'],
-                    'id_cplmk' => $item['id_cplmk'],
-                    'id_pengampu' => $item['id_pengampu'],
-                    'nilai_matkul_cpl' => $item['nilai_matkul_cpl'],
-                    'hasil' => $item['hasil'],
-                    'hasil2' => $item['hasil2']
-                ]);
-            }
-        }
-
-        return true;
+        return $details;
     }
 }

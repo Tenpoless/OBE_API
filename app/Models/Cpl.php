@@ -26,4 +26,9 @@ class Cpl extends Model
     {
         return $this->belongsTo(EvaluasiMhs::class, 'id_cpl', 'id_cpl');
     }
+
+    public function subcpmk()
+    {
+        return $this->hasMany(Subcpmk::class, 'id_cplmk', 'id_cpl');
+    }
 }

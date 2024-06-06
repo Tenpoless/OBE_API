@@ -1,28 +1,49 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CplController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SubCpmkController;
+use App\Http\Controllers\EvaluasiController;
+use App\Http\Controllers\DetailRpsController;
+use App\Http\Controllers\MatkulCplController;
+use App\Http\Controllers\PengampuMkController;
 use App\Http\Controllers\HalamanUtamaController;
 use App\Http\Controllers\EvaluasiMahasiswaController;
 use App\Http\Controllers\EvaluasiMahasiswaDataController;
 use App\Http\Controllers\EvaluasiMahasiswaDetailController;
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+//screen 1
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
-    // Route untuk menampilkan hanya nama dosen - SCR2.1
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    // screen 2
     Route::get('/halaman-utama-nama', [HalamanUtamaController::class, 'getNamaDosen']);
-
-    // Route untuk menampilkan nama dosen, email, dan nomor telepon - SCR2.2
     Route::get('/halaman-utama-profile', [HalamanUtamaController::class, 'getProfileDosen']);
-    
-    // Route untuk mendapatkan mahasiswa berdasarkan dosen ID - SCR5.1
-    Route::get('/evaluasi-mahasiswa-detail/{id_user}', [EvaluasiMahasiswaDetailController::class, 'show']);
 
-    // Route untuk mendapatkan detail mahasiswa berdasarkan mahasiswa ID - SCR5.2
-    Route::get('/evaluasi-mahasiswa-detail/{id}', [EvaluasiMahasiswaDetailController::class, 'getEvaluasiDetailsByUserId']);
+    // screen 3
+    Route::get('/matkul', [PengampuMkController::class, 'show']);
+    Route::get('/matkul/{id_matkul}/{id_pengampu}', [PengampuMkController::class, 'showMatkul']);
 
-    // Route untuk mendapatkan hasil hitung nilai mahasiswa berdasarkan mahasiswa ID
-    Route::patch('hitung/{id_user}', [EvaluasiMahasiswaDetailController::class, 'hitungByUserId']);
+    // screen 4
+    Route::get('/detailrps/minggu/{id_matkul}', [DetailRpsController::class, 'showMinggu']);
+    Route::get('/evaluasi/{id_matkul}/{minggu}', [EvaluasiController::class, 'showEvaluasi']);
+    Route::post('/evaluasi', [EvaluasiController::class, 'store']);
+    Route::put('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'update']);
+    Route::delete('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'destroy']);
+
+    // screen 5
+    Route::get('/mahasiswa-by-matkul/{id_matkul}', [EvaluasiMahasiswaDataController::class, 'showByMatkul']);
+    Route::get('/evaluasi-mahasiswa-detail/{id_user}', [EvaluasiMahasiswaDetailController::class, 'getByUserId']);
+    //coba
+
+
+    // screen 6
+    Route::get('/matkul-cpl/{userId}', [MatkulCplController::class, 'showByUserId']);
+    Route::get('/total_cpl/{id_user}', [CplController::class, 'show']);
 });
