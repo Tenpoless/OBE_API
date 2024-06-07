@@ -43,4 +43,9 @@ class Evaluasi extends Model
     {
         return $this->belongsTo(Subcpmk::class, 'id_subcpmk', 'id_subcpmk');
     }
+
+    public function evaluasiMhs()
+    {
+        return $this->hasMany(EvaluasiMhs::class, 'id_evaluasi2', 'id_evaluasi');
+    }
 }

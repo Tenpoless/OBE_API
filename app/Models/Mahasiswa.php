@@ -17,7 +17,7 @@ class Mahasiswa extends Model
         'id_mhs',
         'nama_mhs',
         'npm',
-        'eamil',
+        'email',
         'no_hp',
         'id_jurusan',
         'id_user',

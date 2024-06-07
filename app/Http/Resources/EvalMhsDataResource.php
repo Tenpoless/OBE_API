@@ -12,6 +12,7 @@ class EvalMhsDataResource extends JsonResource
             'nama_dosen' => $this->nama_dosen,
             'matkul' => [
                 'id_matkul' => $this->id_matkul,
+                'id_pengampu' => $this->id_pengampu,
                 'nama_matkul' => $this->nama_matkul,
                 'semester' => $this->semester,
                 'kelas' => $this->kelas,

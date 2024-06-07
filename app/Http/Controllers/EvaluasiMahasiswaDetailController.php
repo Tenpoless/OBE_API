@@ -25,4 +25,21 @@ class EvaluasiMahasiswaDetailController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+    public function getByUserId($id_user)
+    {
+        $details = $this->evalMhsDetailRepository->getDetailsByUserId($id_user);
+        if ($details->isEmpty()) {
+            return response()->json(['error' => 'Details not found'], 404);
+        }
+        return EvalMhsDetailResource::collection($details);
+    }
+
+    public function getByMatkulId($id_matkul)
+    {
+        $details = $this->evalMhsDetailRepository->getDetailsByMatkulId($id_matkul);
+        if ($details->isEmpty()) {
+            return response()->json(['error' => 'Details not found'], 404);
+        }
+        return EvalMhsDetailResource::collection($details);
+    }
 }

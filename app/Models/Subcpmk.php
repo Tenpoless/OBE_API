@@ -20,4 +20,14 @@ class SubCpmk extends Model
         "id_cplmk",
         "id_matkul"
     ];
+
+    public function cpl()
+    {
+        return $this->belongsTo(Cpl::class, 'id_cplmk', 'id_cpl');
+    }
+
+    public function detailRps()
+    {
+        return $this->hasMany(DetailRps::class, 'id_subcpmk', 'id_subcpmk');
+    }
 }

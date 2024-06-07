@@ -24,7 +24,8 @@ class EvalMhsDataRepository implements EvalMhsDataRepositoryInterface
                 'dosen.nama_dosen',
                 'user.id_user', 
                 'mahasiswa.nama_mhs', 
-                'mahasiswa.npm'
+                'mahasiswa.npm',
+                'pengampu_mk.id_pengampu'
             )
             ->get();
 
@@ -45,6 +46,7 @@ class EvalMhsDataRepository implements EvalMhsDataRepositoryInterface
                 'semester' => $matkulData->semester,
                 'kelas' => $matkulData->kelas,
                 'nama_dosen' => $matkulData->nama_dosen,
+                'id_pengampu' => $matkulData->id_pengampu,
                 'mahasiswa' => $mahasiswaList,
             ];
         }

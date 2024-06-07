@@ -48,7 +48,7 @@ class EvaluasiMhs extends Model
 
     public function subcpmk()
     {
-        return $this->belongsTo(Subcpmk::class, 'id_subcpmk', 'id_subcpmk');
+        return $this->belongsTo(SubCpmk::class, 'id_subcpmk', 'id_subcpmk');
     }
 
     public function evaluasi()

@@ -4,5 +4,6 @@ namespace App\Interfaces;
 
 interface EvalMhsDetailRepositoryInterface
 {
-    public function findByUserId($id_user);
+    public function getDetailsByUserId($id_user);
+    public function getDetailsByMatkulId($id_matkul);
 }
