@@ -28,7 +28,17 @@ class AuthController extends Controller
         foreach ($users as $user) {
             if ($user->verifyPassword($credentials['password'])) {
                 if (in_array($user->level, [3, 4])) {
-                    $token = JWTAuth::fromUser($user);
+                    $customClaims = [
+                        's' => $user->id_user,
+                        'e' => now()->addHours(3)->timestamp,
+                    ];
+
+                    // Buat token dengan klaim khusus
+                    try {
+                        $token = JWTAuth::claims($customClaims)->fromUser($user);
+                    } catch (JWTException $e) {
+                        return response()->json(['error' => 'could_not_create_token'], 500);
+                    }
 
                     // Dapatkan level user
                     $level = $user->level;
