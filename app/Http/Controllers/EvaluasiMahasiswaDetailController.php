@@ -24,4 +24,13 @@ class EvaluasiMahasiswaDetailController extends Controller
         }
         return EvalMhsDetailResource::collection($details);
     }
+
+    public function calculateBobotMhs($id_user, $id_evaluasimhs)
+    {
+        $evaluasiMhs = $this->evalMhsDetailRepository->calculateAndUpdateBobotMhs($id_evaluasimhs);
+        if (!$evaluasiMhs) {
+            return response()->json(['error' => 'Evaluation not found'], 404);
+        }
+        return new EvalMhsDetailResource($evaluasiMhs);
+    }
 }
