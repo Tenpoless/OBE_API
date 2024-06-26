@@ -70,9 +70,9 @@ class EvaluasiController extends Controller
         return ApiResponseClass::sendResponse(new EvalResource($evaluasi),'',200);
     }
 
-    public function showEvaluasi($id_matkul, $id_detailrps)
+    public function showEvaluasi($id_matkul, $id_detailrps, $id_evaluasi)
     {
-        $evaluasi = $this->evalRepositoryInterface->getEvaluasiByMinggu($id_matkul, $id_detailrps);
+        $evaluasi = $this->evalRepositoryInterface->getEvaluasiByMinggu($id_matkul, $id_detailrps, $id_evaluasi);
 
         return ApiResponseClass::sendResponse($evaluasi,'',200);
     }

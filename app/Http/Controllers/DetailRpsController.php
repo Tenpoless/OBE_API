@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Resources\DetailRpsResource;
 use App\Models\DetailRps;
 use App\Classes\ApiResponseClass;
@@ -35,17 +36,6 @@ class DetailRpsController extends Controller
     {
         // Mengambil minggu berdasarkan id_matkul dari repository
         $minggu = $this->detailRpsRepositoryInterface->getMingguByIdMatkul($id_matkul);
-
-        // // Memeriksa apakah responsnya berupa JSON (kesalahan)
-        // if ($minggu instanceof \Illuminate\Http\JsonResponse) {
-        //     return $minggu;
-        // }
-
-        //     // Memeriksa apakah data ditemukan
-        // if ($minggu->isEmpty()) {
-        //     // Mengembalikan respons jika data tidak ditemukan
-        //     return ApiResponseClass::sendResponse([], 'Data not found', 404);
-        // }
 
         // Mengembalikan data dalam format JSON menggunakan Resource
         return ApiResponseClass::sendResponse($minggu, '', 200);

@@ -32,7 +32,7 @@ Route::middleware('auth:api')->group(function () {
 
     // screen 4
     Route::get('/detailrps/minggu/{id_matkul}', [DetailRpsController::class, 'showMinggu']);
-    Route::get('/evaluasi/{id_matkul}/{minggu}', [EvaluasiController::class, 'showEvaluasi']);
+    Route::get('/evaluasi/{id_matkul}/{id_detailrps}/{id_evaluasi}', [EvaluasiController::class, 'showEvaluasi']);
     Route::post('/evaluasi', [EvaluasiController::class, 'store']);
     Route::put('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'update']);
     Route::delete('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'destroy']);
