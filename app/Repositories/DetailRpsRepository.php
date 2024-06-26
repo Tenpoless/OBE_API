@@ -37,15 +37,3 @@ class DetailRpsRepository implements DetailRpsRepositoryInterface
         
     }
 }
-
-        // $minggu = DB::table('detail_rps')
-        // ->select('minggu', 'id_matkul', 'id_detailrps', 'bobot')
-        // ->where('id_matkul', $id_matkul)
-        // ->get();
-
-        // $minggu = DB::table('evaluasi')
-        // ->select('detail_rps.minggu')
-        // ->leftJoin('detail_rps', 'evaluasi.id_detailrps', '=', 'detail_rps.id_detailrps')
-        // ->leftJoin('subcpmk', 'detail_rps.id_subcpmk', '=', 'subcpmk.id_subcpmk')
-        // ->where('evaluasi.id_matkul', $id_matkul)
-        // ->get();
