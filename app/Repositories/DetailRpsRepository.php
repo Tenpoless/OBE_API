@@ -19,6 +19,9 @@ class DetailRpsRepository implements DetailRpsRepositoryInterface
 
     public function getMingguByIdMatkul($id_matkul)
     {
+
+        dd($id_matkul);
+        
         $minggu = DB::table('evaluasi')
         ->select('detail_rps.minggu', 'detail_rps.id_matkul', 'detail_rps.id_detailrps')
         ->leftJoin('detail_rps', 'evaluasi.id_detailrps', '=', 'detail_rps.id_detailrps')

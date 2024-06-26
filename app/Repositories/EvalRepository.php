@@ -31,7 +31,7 @@ class EvalRepository implements EvalRepositoryInterface
         ->leftJoin('subcpmk', 'detail_rps.id_subcpmk', '=', 'subcpmk.id_subcpmk')
         ->leftJoin('evaluasi', 'detail_rps.id_detailrps', '=', 'evaluasi.id_detailrps')
         ->where('detail_rps.id_matkul', $id_matkul)
-        ->where('detail_rps.id_detailrps', $id_detailrps) // Filter berdasarkan minggu
+        ->where('detail_rps.id_detailrps', $id_detailrps) // Filter berdasarkan id_detailrps 
         ->get();
 
         return $evaluasi;
