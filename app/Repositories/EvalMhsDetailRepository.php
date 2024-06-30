@@ -17,6 +17,7 @@ class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
             ->join('evaluasi_mhs', 'evaluasi.id_evaluasi', '=', 'evaluasi_mhs.id_evaluasi2')
             ->where('evaluasi_mhs.id_user', $id_user)
             ->select(
+                'detail_rps.id_detailrps',
                 'evaluasi_mhs.id_evaluasimhs', 
                 'detail_rps.minggu', 
                 'cpl.kode_cpl', 
@@ -33,20 +34,20 @@ class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
         return $details;
     }
 
-    public function calculateAndUpdateBobotMhs($id_evaluasimhs)
-    {
-        $evaluasiMhs = EvaluasiMhs::find($id_evaluasimhs);
-        if (!$evaluasiMhs) {
-            return null;
-        }
+    // public function calculateAndUpdateBobotMhs($id_evaluasimhs)
+    // {
+    //     $evaluasiMhs = EvaluasiMhs::find($id_evaluasimhs);
+    //     if (!$evaluasiMhs) {
+    //         return null;
+    //     }
 
-        $bobot = $evaluasiMhs->detailRps->bobot;
-        $nilaiMhs = $evaluasiMhs->nilai_mhs;
+    //     $bobot = $evaluasiMhs->detailRps->bobot;
+    //     $nilaiMhs = $evaluasiMhs->nilai_mhs;
 
-        $bobotMhs = ($bobot * $nilaiMhs) / 100;
-        $evaluasiMhs->bobot_mhs = $bobotMhs;
-        $evaluasiMhs->save();
+    //     $bobotMhs = ($bobot * $nilaiMhs) / 100;
+    //     $evaluasiMhs->bobot_mhs = $bobotMhs;
+    //     $evaluasiMhs->save();
 
-        return $evaluasiMhs;
-    }
+    //     return $evaluasiMhs;
+    // }
 }

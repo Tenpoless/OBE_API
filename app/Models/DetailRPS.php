@@ -26,13 +26,11 @@ class DetailRps extends Model
         "id_matkul"
     ];
 
-    // Definisikan relasi ke model SubCpmk
     public function subcpmk()
     {
         return $this->belongsTo(SubCpmk::class, 'id_subcpmk', 'id_subcpmk');
     }
     
-    // Definisikan relasi ke model Matkul
     public function matkul()
     {
         return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');
