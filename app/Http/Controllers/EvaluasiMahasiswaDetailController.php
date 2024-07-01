@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ApiResponseClass;
 use Illuminate\Http\Request;
 use App\Http\Resources\EvalMhsDetailResource;
+use App\Repositories\EvalMhsDetailRepository;
 use App\Interfaces\EvalMhsDetailRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EvaluasiMahasiswaDetailController extends Controller
 {
@@ -16,15 +19,6 @@ class EvaluasiMahasiswaDetailController extends Controller
         $this->evalMhsDetailRepository = $evalMhsDetailRepository;
     }
 
-    public function show($id_user)
-    {
-        try {
-            $evaluasiMhsDetail = $this->evalMhsDetailRepository->findByUserId($id_user);
-            return EvalMhsDetailResource::collection($evaluasiMhsDetail);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
     public function getByUserId($id_user)
     {
         $details = $this->evalMhsDetailRepository->getDetailsByUserId($id_user);
@@ -41,5 +35,26 @@ class EvaluasiMahasiswaDetailController extends Controller
             return response()->json(['error' => 'Details not found'], 404);
         }
         return EvalMhsDetailResource::collection($details);
+    }
+
+    public function calculateEvaluasi(Request $request, $id_matkul, $id_user, $id_pengampu)
+    {
+        $id_evaluasimhs = $request->input('id_evaluasimhs');
+        $nilai_mhs = $request->input('nilai_mhs');
+        $bobot = $request->input('bobot');
+
+        if (!$id_evaluasimhs || !$nilai_mhs || !$bobot) {
+            Log::error('Invalid input data', ['id_evaluasimhs' => $id_evaluasimhs, 'nilai_mhs' => $nilai_mhs, 'bobot' => $bobot]);
+            return response()->json(['message' => 'Invalid input data'], 400);
+        }
+
+        $result = $this->evalMhsDetailRepository->calculate($id_evaluasimhs, $nilai_mhs, $bobot);
+
+        if ($result) {
+            return response()->json(['message' => 'Data Berhasil Diupdate !!'], 200);
+        } else {
+            Log::error('Update failed for id_evaluasimhs: ' . $id_evaluasimhs);
+            return response()->json(['message' => 'Gagal'], 500);
+        }
     }
 }

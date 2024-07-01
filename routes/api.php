@@ -33,6 +33,7 @@ Route::middleware('auth:api')->group(function () {
     // screen 4
     Route::get('/detailrps/minggu/{id_matkul}', [DetailRpsController::class, 'showMinggu']);
     Route::get('/evaluasi/{id_matkul}/{id_detailrps}/{id_evaluasi}', [EvaluasiController::class, 'showEvaluasi']);
+    Route::get('/subcpmk/{id_detailrps}', [SubCpmkController::class, 'showSubcpmk']);
     Route::post('/evaluasi', [EvaluasiController::class, 'store']);
     Route::put('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'update']);
     Route::delete('/evaluasi/{id_evaluasi}', [EvaluasiController::class, 'destroy']);
@@ -40,8 +41,7 @@ Route::middleware('auth:api')->group(function () {
     // screen 5
     Route::get('/mahasiswa-by-matkul/{id_matkul}', [EvaluasiMahasiswaDataController::class, 'showByMatkul']);
     Route::get('/evaluasi-mahasiswa-detail/{id_user}', [EvaluasiMahasiswaDetailController::class, 'getByUserId']);
-    //coba
-
+    Route::post('/evaluasi_mahasiswa_hitung/{id_matkul}/{id_user}/{id_pengampu}', [EvaluasiMahasiswaDetailController::class, 'calculateEvaluasi']);
 
     // screen 6
     Route::get('/matkul-cpl/{userId}', [MatkulCplController::class, 'showByUserId']);
