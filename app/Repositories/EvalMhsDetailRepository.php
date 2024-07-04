@@ -60,25 +60,40 @@ class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
     }
 
     public function updateNilai($id_evaluasimhs, $data)
-{
-    $evaluasiMhs = EvaluasiMhs::find($id_evaluasimhs);
-    
-    if (!$evaluasiMhs) {
-        return false;
+    {
+        $evaluasiMhs = EvaluasiMhs::find($id_evaluasimhs);
+        
+        if (!$evaluasiMhs) {
+            return false;
+        }
+        
+        $evaluasiMhs->id_evaluasi2 = $data['id_evaluasi'];
+        $evaluasiMhs->nilai_mhs = $data['nilai_mhs'];
+        
+        $evaluasiMhs->bobot_mhs = isset($data['bobot_mhs']) ? $data['bobot_mhs'] : 0;
+        
+        try {
+            return $evaluasiMhs->save();
+        } catch (\Exception $e) {
+            Log::error('Failed to update nilai mahasiswa: ' . $e->getMessage());
+            return false;
+        }
     }
-    
-    $evaluasiMhs->id_evaluasi2 = $data['id_evaluasi'];
-    $evaluasiMhs->nilai_mhs = $data['nilai_mhs'];
-    
-    $evaluasiMhs->bobot_mhs = isset($data['bobot_mhs']) ? $data['bobot_mhs'] : 0;
-    
-    try {
-        return $evaluasiMhs->save();
-    } catch (\Exception $e) {
-        Log::error('Failed to update nilai mahasiswa: ' . $e->getMessage());
-        return false;
-    }
-}
     
 
+    public function deleteNilai($id_evaluasimhs)
+    {
+        $evaluasiMhs = EvaluasiMhs::find($id_evaluasimhs);
+
+        if (!$evaluasiMhs) {
+            return false; // Data tidak ditemukan
+        }
+
+        try {
+            return $evaluasiMhs->delete();
+        } catch (\Exception $e) {
+            Log::error('Failed to delete nilai mahasiswa: ' . $e->getMessage());
+            return false;
+        }
+    }
 }

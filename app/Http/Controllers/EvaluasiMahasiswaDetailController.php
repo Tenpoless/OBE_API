@@ -43,16 +43,27 @@ class EvaluasiMahasiswaDetailController extends Controller
     }
 
     public function update(UpdateEvaluasiMahasiswaDetailRequest $request, $id_user, $id_matkul, $id_evaluasimhs)
-{
-    $data = $request->only(['id_evaluasi', 'nilai_mhs']);
-    
-    $update = $this->evalMhsDetailRepository->updateNilai($id_evaluasimhs, $data);
+    {
+        $data = $request->only(['id_evaluasi', 'nilai_mhs']);
+        
+        $update = $this->evalMhsDetailRepository->updateNilai($id_evaluasimhs, $data);
 
-    if ($update) {
-        return response()->json(['message' => 'Data updated successfully'], 200);
-    } else {
-        return response()->json(['error' => 'Failed to update data. Check application logs for details.'], 500);
+        if ($update) {
+            return response()->json(['message' => 'Data updated successfully'], 200);
+        } else {
+            return response()->json(['error' => 'Failed to update data. Check application logs for details.'], 500);
+        }
     }
-}
+
+    public function destroy($id_user, $id_matkul, $id_evaluasimhs)
+    {
+        $delete = $this->evalMhsDetailRepository->deleteNilai($id_evaluasimhs);
+
+        if ($delete) {
+            return response()->json(['message' => 'Data deleted successfully'], 200);
+        } else {
+            return response()->json(['error' => 'Failed to delete data. Check application logs for details.'], 500);
+        }
+    }
 
 }

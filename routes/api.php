@@ -43,6 +43,8 @@ Route::middleware('auth:api')->group(function () {
     //coba
     Route::post('/evaluasi-mahasiswa-detail/{id_user}/{id_matkul}', [EvaluasiMahasiswaDetailController::class, 'store']);
     Route::put('/evaluasi-mahasiswa-detail/{id_user}/{id_matkul}/{id_evaluasimhs}', [EvaluasiMahasiswaDetailController::class, 'update']);
+    Route::delete('/evaluasi-mahasiswa-detail/{id_user}/{id_matkul}/{id_evaluasimhs}', [EvaluasiMahasiswaDetailController::class, 'destroy']);
+
 
 
     // screen 6
