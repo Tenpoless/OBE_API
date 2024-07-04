@@ -24,17 +24,29 @@ class EvalRepository implements EvalRepositoryInterface
         return $evaluasi;
     }
 
-    public function getEvaluasiByMinggu($id_matkul, $id_detailrps)
+    public function getEvaluasiByMinggu($id_matkul, $id_detailrps, $id_evaluasi)
     {
         $evaluasi = DB::table('detail_rps')
-        ->select('detail_rps.id_detailrps', 'detail_rps.minggu', 'detail_rps.id_subcpmk', 'detail_rps.bobot', 'detail_rps.id_matkul', 'subcpmk.id_subcpmk', 'subcpmk.subcpmk', 'subcpmk.id_matkul', 'evaluasi.*') // Pilih kolom yang diperlukan
+        ->select(
+            'detail_rps.id_detailrps', 
+            'detail_rps.minggu', 
+            'detail_rps.id_subcpmk', 
+            'detail_rps.bobot', 
+            'detail_rps.id_matkul', 
+            'subcpmk.id_subcpmk', 
+            'subcpmk.subcpmk', 
+            'subcpmk.id_matkul', 
+            'evaluasi.id_evaluasi',
+            'evaluasi.*'
+        )
         ->leftJoin('subcpmk', 'detail_rps.id_subcpmk', '=', 'subcpmk.id_subcpmk')
         ->leftJoin('evaluasi', 'detail_rps.id_detailrps', '=', 'evaluasi.id_detailrps')
         ->where('detail_rps.id_matkul', $id_matkul)
-        ->where('detail_rps.id_detailrps', $id_detailrps) // Filter berdasarkan id_detailrps 
-        ->get();
+        ->where('detail_rps.id_detailrps', $id_detailrps) // Filter berdasarkan id_detailrps
+        ->where('evaluasi.id_evaluasi', $id_evaluasi) // Filter berdasarkan id_evaluasi
+        ->first();
 
-        return $evaluasi;
+    return $evaluasi;
     }
 
     public function store(array $data)

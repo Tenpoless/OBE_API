@@ -14,6 +14,8 @@ class EvalMhsDetailResource extends JsonResource
             'asesmen' => $this->whenNotNull($this->asesmen, 'N/A'),
             'bobot' => $this->whenNotNull($this->bobot, 'N/A'),
             'nilai_mhs' => $this->whenNotNull($this->nilai_mhs, 'N/A'),
+            'bobot_mhs' => $this->whenNotNull($this->bobot_mhs, 'N/A'),
+            'id_evaluasimhs' => $this->whenNotNull($this->id_evaluasimhs, 'N/A'),
         ];
     }
 }

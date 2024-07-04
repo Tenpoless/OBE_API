@@ -15,7 +15,7 @@ class SubCpmkController extends Controller
         $this->subCpmkRepositoryInterface = $subCpmkRepositoryInterface;
     }
 
-    public function show($id_detailrps)
+    public function showSubcpmk($id_detailrps)
     {
         $subcpmk = $this->subCpmkRepositoryInterface->getSubCpmkById($id_detailrps);
 
