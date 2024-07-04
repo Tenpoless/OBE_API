@@ -9,6 +9,7 @@ class EvalMhsDetailResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id_matkul' => $this->whenNotNull($this->id_matkul, 'N/A'),
             'id_detailrps' => $this->whenNotNull($this->id_detailrps, 'N/A'),
             'id_evaluasimhs' => $this->whenNotNull($this->id_evaluasimhs, 'N/A'),
             'minggu' => $this->whenNotNull($this->minggu, 'N/A'),
