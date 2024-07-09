@@ -62,6 +62,14 @@ class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
         $updateResult = $evaluasi->update($data);
         Log::info('Hasil update: ' . $updateResult);
 
-        return $updateResult;
+        if ($updateResult) {
+            return [
+                'nilai_mhs' => $nilai_mhs,
+                'bobot' => $bobot,
+                'bobot_mhs' => $hasil2
+            ];
+        }
+
+        return false;
     }
 }

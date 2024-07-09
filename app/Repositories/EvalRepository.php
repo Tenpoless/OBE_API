@@ -45,7 +45,7 @@ class EvalRepository implements EvalRepositoryInterface
         ->where('detail_rps.id_detailrps', $id_detailrps) // Filter berdasarkan id_detailrps
         ->where('evaluasi.id_evaluasi', $id_evaluasi) // Filter berdasarkan id_evaluasi
         ->first();
-
+        
     return $evaluasi;
     }
 
