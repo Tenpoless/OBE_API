@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Matkul;
+use App\Models\Cpl;
+use App\Models\Subcpmk;
+use App\Models\Evaluasi;
+use App\Models\DetailRps;
+use App\Models\User;
 
 class EvaluasiMhs extends Model
 {

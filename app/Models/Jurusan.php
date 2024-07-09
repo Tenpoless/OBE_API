@@ -9,20 +9,10 @@ class Jurusan extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
     protected $table = 'jurusan';
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id_jurusan'; // Menentukan primary key 'id_jurusan'
-
+    protected $primaryKey = 'id_jurusan';
+    
     /**
      * Indicates if the IDs are auto-incrementing.
      *
@@ -37,17 +27,11 @@ class Jurusan extends Model
      */
     public $timestamps = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'id_jurusan',
         'nama',
         'kode_jurusan',
         'koordinator_jurusan',
-        'id_fakultas',
+        'id_fakultas'
     ];
 
     /**
@@ -61,5 +45,10 @@ class Jurusan extends Model
     public function matkul()
     {
         return $this->belongsTo(Matkul::class, 'id_jurusan', 'id_jurusan'); // Relasi one-to-one dengan model User
+    }
+    
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class, 'id_fakultas', 'id_fakultas');
     }
 }

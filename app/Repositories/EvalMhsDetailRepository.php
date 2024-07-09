@@ -2,7 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\EvaluasiMhs;
 use App\Interfaces\EvalMhsDetailRepositoryInterface;
+use Illuminate\Http\Request;
+use App\Models\Evaluasi;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Cpl;
 use App\Models\DetailRps;
 use App\Models\EvaluasiMhs;
@@ -33,9 +37,6 @@ class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
                 'evaluasi_mhs.bobot_mhs'
             )
             ->get();
-
-        Log::info('User ID: ' . $id_user);
-        Log::info('Details: ', $details->toArray());
 
         return $details;
     }
@@ -95,5 +96,37 @@ class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
             Log::error('Failed to delete nilai mahasiswa: ' . $e->getMessage());
             return false;
         }
+    }
+
+    public function calculate($id_evaluasimhs, $nilai_mhs, $bobot)
+    {
+        $hasil = $nilai_mhs * $bobot;
+        $hasil2 = $hasil / 100;
+
+        $data = [
+            'bobot_mhs' => $hasil2
+        ];
+
+        Log::info('Hasil perhitungan: ' . $hasil2);
+        Log::info('Data yang akan diupdate: ', $data);
+
+        $evaluasi = EvaluasiMhs::find($id_evaluasimhs);
+        if (!$evaluasi) {
+            Log::error('Data evaluasi tidak ditemukan untuk id: ' . $id_evaluasimhs);
+            return false;
+        }
+
+        $updateResult = $evaluasi->update($data);
+        Log::info('Hasil update: ' . $updateResult);
+
+        if ($updateResult) {
+            return [
+                'nilai_mhs' => $nilai_mhs,
+                'bobot' => $bobot,
+                'bobot_mhs' => $hasil2
+            ];
+        }
+
+        return false;
     }
 }

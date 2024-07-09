@@ -63,11 +63,18 @@ class EvaluasiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id_evaluasi)
+    public function show($id_detailrps)
     {
-        $evaluasi = $this->evalRepositoryInterface->getById($id_evaluasi);
+        $evaluasi = $this->evalRepositoryInterface->getById($id_detailrps);
 
         return ApiResponseClass::sendResponse(new EvalResource($evaluasi),'',200);
+    }
+
+    public function showEvaluasi($id_matkul, $id_detailrps, $id_evaluasi)
+    {
+        $evaluasi = $this->evalRepositoryInterface->getEvaluasiByMinggu($id_matkul, $id_detailrps, $id_evaluasi);
+
+        return ApiResponseClass::sendResponse($evaluasi,'',200);
     }
 
     /**

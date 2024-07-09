@@ -10,12 +10,14 @@ class Dosen extends Model
     use HasFactory;
 
     protected $table = 'dosen';
+
     protected $primaryKey = 'id_dosen';
+
     public $incrementing = true;
+
     public $timestamps = false;
 
     protected $fillable = [
-        'id_dosen',
         'nip',
         'nama_dosen',
         'tempat_lahir',
@@ -35,7 +37,6 @@ class Dosen extends Model
     {
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
     }
-
     public function pengampu_mk()
     {
         return $this->hasMany(PengampuMK::class, 'id_dosen', 'id_dosen');

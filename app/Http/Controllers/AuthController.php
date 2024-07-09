@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/AuthController.php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -30,16 +28,30 @@ class AuthController extends Controller
         foreach ($users as $user) {
             if ($user->verifyPassword($credentials['password'])) {
                 if (in_array($user->level, [3, 4])) {
-                    $token = JWTAuth::fromUser($user);
+                    $customClaims = [
+                        's' => $user->id_user,
+                        'e' => now()->addHours(3)->timestamp,
+                    ];
+
+                    // Buat token dengan klaim khusus
+                    try {
+                        $token = JWTAuth::claims($customClaims)->fromUser($user);
+                    } catch (JWTException $e) {
+                        return response()->json(['error' => 'could_not_create_token'], 500);
+                    }
 
                     // Dapatkan level user
                     $level = $user->level;
+
+                    $id_user = $user->id_user;
+
+                    $status = $user->status;
 
                     // Log informasi pengguna untuk debugging
                     Log::info('User ID: ' . $user->id . ', Level: ' . $level);
 
                     // Kembalikan token dan level
-                    return response()->json(compact('token', 'level'));
+                    return response()->json(compact('token', 'level', 'id_user', 'status'));
                 } else {
                     // Jika user berlevel selain 3 dan 4
                     return response()->json(['error' => 'Anda tidak terdaftar'], 401);

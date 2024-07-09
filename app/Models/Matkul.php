@@ -29,6 +29,11 @@ class Matkul extends Model
         return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
     }
 
+    public function deskripsiMk()
+    {
+        return $this->hasOne(DeskripsiMk::class, 'id_matkul', 'id_matkul');
+    }
+
     public function detail_rps()
     {
         return $this->belongsTo(DetailRPS::class, 'id_matkul', 'id_matkul');
