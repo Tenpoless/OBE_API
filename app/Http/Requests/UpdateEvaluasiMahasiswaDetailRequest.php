@@ -8,15 +8,14 @@ class UpdateEvaluasiMahasiswaDetailRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; // Ubah menjadi 'true' jika Anda ingin memungkinkan permintaan untuk diproses.
+        return true;
     }
 
     public function rules()
     {
         return [
+            'id_evaluasi' => 'required|numeric',
             'nilai_mhs' => 'required|numeric',
-            'bobot' => 'required|numeric'
-            // Tentukan aturan validasi tambahan jika diperlukan untuk operasi pembaruan entitas.
         ];
     }
 }

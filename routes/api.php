@@ -41,6 +41,9 @@ Route::middleware('auth:api')->group(function () {
     // screen 5
     Route::get('/mahasiswa-by-matkul/{id_matkul}', [EvaluasiMahasiswaDataController::class, 'showByMatkul']);
     Route::get('/evaluasi-mahasiswa-detail/{id_user}', [EvaluasiMahasiswaDetailController::class, 'getByUserId']);
+    Route::post('/evaluasi-mahasiswa-detail/{id_user}/{id_matkul}', [EvaluasiMahasiswaDetailController::class, 'store']);
+    Route::put('/evaluasi-mahasiswa-detail/{id_user}/{id_matkul}/{id_evaluasimhs}', [EvaluasiMahasiswaDetailController::class, 'update']);
+    Route::delete('/evaluasi-mahasiswa-detail/{id_user}/{id_matkul}/{id_evaluasimhs}', [EvaluasiMahasiswaDetailController::class, 'destroy']);
     Route::post('/evaluasi_mahasiswa_hitung/{id_matkul}/{id_user}/{id_evaluasimhs}/{id_pengampu}', [EvaluasiMahasiswaDetailController::class, 'calculateEvaluasi']);
 
     // screen 6
