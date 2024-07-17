@@ -62,6 +62,7 @@ class EvaluasiMahasiswaDetailController extends Controller
         }
     }
 
+
     public function destroy($id_user, $id_matkul, $id_evaluasimhs)
     {
         $delete = $this->evalMhsDetailRepository->deleteNilai($id_evaluasimhs);
