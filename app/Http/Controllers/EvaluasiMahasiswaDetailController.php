@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Classes\ApiResponseClass;
-use Illuminate\Http\Request;
 use App\Http\Resources\EvalMhsDetailResource;
 use App\Repositories\EvalMhsDetailRepository;
 use App\Interfaces\EvalMhsDetailRepositoryInterface;
@@ -62,6 +61,7 @@ class EvaluasiMahasiswaDetailController extends Controller
             return response()->json(['error' => 'Failed to update data. Check application logs for details.'], 500);
         }
     }
+
 
     public function destroy($id_user, $id_matkul, $id_evaluasimhs)
     {

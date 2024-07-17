@@ -9,8 +9,6 @@ use App\Models\Evaluasi;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cpl;
 use App\Models\DetailRps;
-use App\Models\EvaluasiMhs;
-use App\Models\Evaluasi;
 use App\Models\SubCpmk;
 use Illuminate\Support\Facades\Log;
 
@@ -65,21 +63,23 @@ class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
         $evaluasiMhs = EvaluasiMhs::find($id_evaluasimhs);
         
         if (!$evaluasiMhs) {
+            Log::error('Failed to update nilai mahasiswa: EvaluasiMhs not found for id_evaluasimhs ' . $id_evaluasimhs);
             return false;
         }
-        
+
         $evaluasiMhs->id_evaluasi2 = $data['id_evaluasi'];
         $evaluasiMhs->nilai_mhs = $data['nilai_mhs'];
-        
         $evaluasiMhs->bobot_mhs = isset($data['bobot_mhs']) ? $data['bobot_mhs'] : 0;
         
         try {
-            return $evaluasiMhs->save();
+            $evaluasiMhs->save();
+            return true;
         } catch (\Exception $e) {
-            Log::error('Failed to update nilai mahasiswa: ' . $e->getMessage());
+            Log::error('Failed to update nilai mahasiswa: ' . $e->getMessage(), ['exception' => $e]);
             return false;
         }
     }
+
     
 
     public function deleteNilai($id_evaluasimhs)
@@ -128,5 +128,30 @@ class EvalMhsDetailRepository implements EvalMhsDetailRepositoryInterface
         }
 
         return false;
+    }
+
+    public function getDetailsByMatkulId($id_matkul)
+    {
+        $details = Cpl::join('subcpmk', 'cpl.id_cpl', '=', 'subcpmk.id_cplmk')
+            ->join('detail_rps', 'subcpmk.id_subcpmk', '=', 'detail_rps.id_subcpmk')
+            ->join('evaluasi', 'detail_rps.id_detailrps', '=', 'evaluasi.id_detailrps')
+            ->join('matkul', 'matkul.id_matkul', '=', 'detail_rps.id_matkul')
+            ->join('evaluasi_mhs', 'evaluasi.id_evaluasi', '=', 'evaluasi_mhs.id_evaluasi2')
+            ->where('matkul.id_matkul', $id_matkul)
+            ->select(
+                'matkul.id_matkul',
+                'detail_rps.id_detailrps',
+                'evaluasi_mhs.id_evaluasimhs',
+                'detail_rps.minggu',
+                'cpl.kode_cpl',
+                'subcpmk.subcpmk',
+                'evaluasi.asesmen',
+                'detail_rps.bobot',
+                'evaluasi_mhs.nilai_mhs',
+                'evaluasi_mhs.bobot_mhs'
+            )
+            ->get();
+
+        return $details;
     }
 }
