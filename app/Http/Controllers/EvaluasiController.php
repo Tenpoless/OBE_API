@@ -74,7 +74,22 @@ class EvaluasiController extends Controller
     {
         $evaluasi = $this->evalRepositoryInterface->getEvaluasiByMinggu($id_matkul, $id_detailrps, $id_evaluasi);
 
-        return ApiResponseClass::sendResponse($evaluasi,'',200);
+        if (!$evaluasi) {
+            return response()->json(['error' => 'Data tidak ditemukan'], 404);
+        }
+    
+        $cleanedDetailAsesmen = json_decode($evaluasi->detail_asesmen, true);
+        $cleanedAsesmen = json_decode($evaluasi->asesmen, true);
+    
+        return response()->json([
+            'id_evaluasi' => $evaluasi->id_evaluasi,
+            'id_detailrps' => $evaluasi->id_detailrps,
+            'subcpmk' => $evaluasi->subcpmk,
+            'asesmen' => $evaluasi->asesmen,
+            'bobot' => $evaluasi->bobot,
+            'detail_asesmen' => $evaluasi->detail_asesmen,
+            'id_matkul' => $evaluasi->id_matkul
+        ], 200);
     }
 
     /**
